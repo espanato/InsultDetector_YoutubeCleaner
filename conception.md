@@ -11,7 +11,7 @@ Déterminer quels sujets développent le plus la haine sur youtube.
 
 
 ETAPES:
-Récupérer les commentaires youtube/comprendre le fonctionnement de l’API
+      1) Récupérer les commentaires youtube/comprendre le fonctionnement de l’API
 Récupérer les commentaires via l’API
 Fonction qui stocke les commentaires dans une liste
 
@@ -35,6 +35,6 @@ Déjà fait (Charly)
 
 
 
-MVP : Pouvoir récupérer les commentaires d’une vidéo et savoir si il s’agit d’une insulte envers le youtuber  
+MVP : Pouvoir récupérer les commentaires d’une vidéo et savoir s'il s’agit d’une insulte envers le youtuber  
 
 API : https://developers.google.com/youtube/v3/docs/comments
