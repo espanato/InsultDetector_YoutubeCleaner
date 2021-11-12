@@ -14,7 +14,8 @@ from google.auth.transport.requests import Request
 from pathlib import Path
 
 
-SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
+#SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
+SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
 API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
 HOME = str(Path.home())
