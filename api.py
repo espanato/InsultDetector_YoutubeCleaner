@@ -16,6 +16,7 @@ from pathlib import Path
 
 #SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
 SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
+#SCOPES = ['http://sharepoint/content/sitecollection/web']
 API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
 HOME = str(Path.home())
