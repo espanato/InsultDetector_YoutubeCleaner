@@ -1,6 +1,6 @@
-# InsulteDetector_S2_
+# InsulteDetector_S2_YoutubeCleaner
 
-Projet CodingWeeks Groupe 7 Détecteur d'insultes
+Projet de la semaine 2 des Coding Weeks du Groupe 7 en Détecteur d'insultes
 
 ## Membres
 
@@ -9,4 +9,4 @@ Projet CodingWeeks Groupe 7 Détecteur d'insultes
 - BOHARD Charly
 - CERVERA Romain
 - ESPANA Tomas
-- ROBY Edouard 
+- ROBY Edouard
