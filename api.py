@@ -5,6 +5,7 @@ import os
 import pickle
 import time
 import sys
+from google.auth import credentials
 import google.oauth2.credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -50,5 +51,7 @@ def get_authenticated_service(CLIENT_SECRETS_FILE):
         with open(CACHE_CREDENTIALS_FILE, 'wb') as token:
             pickle.dump(credentials, token)
 
+
+return build(API_SERVICE_NAME, API_VERSION, credentials=credentials)
 
 service = get_authenticated_service('credentials.json')
