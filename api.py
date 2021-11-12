@@ -43,15 +43,15 @@ def get_authenticated_service(CLIENT_SECRETS_FILE):
 
         else:
             # else auth by google
-            flow = InstalledAppFlow.flow_client_secrets_file(
-                CLIENT_SECRETS_FILE, SCOPES())
+            flow = InstalledAppFlow.from_client_secrets_file(
+                CLIENT_SECRETS_FILE, SCOPES)
             credentials = flow.run_console()
 
         # Save the credentials into the pickle for the next run
         with open(CACHE_CREDENTIALS_FILE, 'wb') as token:
             pickle.dump(credentials, token)
 
+    return build(API_SERVICE_NAME, API_VERSION, credentials=credentials)
 
-return build(API_SERVICE_NAME, API_VERSION, credentials=credentials)
 
 service = get_authenticated_service('credentials.json')
