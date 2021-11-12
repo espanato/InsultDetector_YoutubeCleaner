@@ -1,4 +1,11 @@
-def get_video_commetns(service, **kwargs):
+from api import get_authenticated_service
+
+
+# OBJ: renvoie sous forme de dico les commentaires d'une vidéo en particulier
+# le dico: les clés sont les pseudos des utilisateurs, les valeurs sont leurs commentaires
+
+
+def get_video_comments(service, **kwargs):
     dico = {}
 
     # request google api
@@ -8,8 +15,7 @@ def get_video_commetns(service, **kwargs):
         # keep comments and authors
         for item in results['items']:
             comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
-            author = item['snippet']['topLevelComment']['snippet']['authorDisplayname']
-            # la cle est le pseudo de l'auteur et la cle son commentaire
+            author = item['snippet']['topLevelComment']['snippet']['authorDisplayName']
             dico[author] = comment
 
             # Check if another page exists
@@ -21,8 +27,8 @@ def get_video_commetns(service, **kwargs):
         return dico
 
 
-service = get_authenticated_service("creds.json")
+service = get_authenticated_service("credentials.json")
 video_id = input("Quel est l'id de la video")
-result = get_video_comments(service, part='snippet',
-                            videoId=video_id, textFormat='plaintText')
+result = get_video_comments(service, key='AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs', part='snippet',
+                            videoId=video_id, textFormat='plainText')
 print(result)
