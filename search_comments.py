@@ -3,7 +3,6 @@ import os
 from bs4 import BeautifulSoup
 import requests
 import csv
-from api import get_authenticated_service
 
 
 # OBJ: renvoie sous forme de dico les commentaires d'une vidéo en particulier
@@ -12,7 +11,7 @@ from api import get_authenticated_service
 def get_video_comments(video_id):
     commentaires_dico = {}
     requete = requests.get(
-        "https://youtube.googleapis.com/youtube/v3/commentThreads?key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs&part=snippet&videoId=DHiTuMboqVI&textFormat=plainText")
+        "https://youtube.googleapis.com/youtube/v3/commentThreads?key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs&part=snippet&videoId="+video_id+"&textFormat=plainText")
     page = requete.content
     soup = BeautifulSoup(page, features='html.parser')
     dico = json.loads(str(soup))
