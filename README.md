@@ -13,4 +13,6 @@ Projet de la semaine 2 des Coding Weeks du Groupe 7 en Détecteur d'insultes
 
 ## Installation de packets pour l'API Google 
 
-pip install click google-auth-oauthlib google-auth-httplib2 google-api-python-client 
+- pip install click google-auth-oauthlib google-auth-httplib2 google-api-python-client 
+- pip install bs4
+- pip install requests
