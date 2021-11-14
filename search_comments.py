@@ -65,8 +65,8 @@ def get_video_comments_msg_id(video_id, nb=3):
     dico_comments = get_video_comments(video_id, nb)
     for item in dico_comments['items']:
         comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
-        id = item['id']
-        commentaires_dico[id] = comment
+        identifiant = item['id']
+        commentaires_dico[identifiant] = item
     return commentaires_dico
 
 
