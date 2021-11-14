@@ -144,5 +144,5 @@ def get_video_replies_words(parent_id, liste_de_mots, nb=3):
     return commentaires_dico
 
 
-print(get_video_replies_words('UgyXSKR2TSiAgzebL3R4AaABAg',
-      ['bac+3', 'bac + 3', 'imbecile', 'imbécile']))
+# print(get_video_replies_words('UgyXSKR2TSiAgzebL3R4AaABAg',
+#      ['bac+3', 'bac + 3', 'imbecile', 'imbécile']))
