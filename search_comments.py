@@ -17,7 +17,7 @@ def get_video_comments(video_id, nb=3):
     return(dico)
 
 
-def get_video_comments_info(video_id, nb=3):
+def get_video_comments_user_name(video_id, nb=3):
     commentaires_dico = {}
     dico_comments = get_video_comments(video_id, nb)
     for item in dico_comments['items']:
@@ -27,11 +27,23 @@ def get_video_comments_info(video_id, nb=3):
     return commentaires_dico
 
 
-#print(get_video_comments_info('vBFiBT2Z0EM', 3))
+# print(get_video_comments_info('vBFiBT2Z0EM', 3))
 
+def get_video_comments_msg_id(video_id, nb=3):
+    commentaires_dico = {}
+    dico_comments = get_video_comments(video_id, nb)
+    for item in dico_comments['items']:
+        comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+        id = item['id']
+        commentaires_dico[id] = comment
+    return commentaires_dico
+
+
+print(get_video_comments_msg_id('vBFiBT2Z0EM'))
 
 # OBJ: filtrer les commentaires qui possèdent une liste de mots
 # pour une vidéo, on filtre les commentaires qui incluent les mots dans la liste en argument
+
 
 def get_video_comments_words(video_id, liste_de_mots, nb=3):
     commentaires_dico = {}
@@ -62,5 +74,10 @@ def get_video_comments_words(video_id, liste_de_mots, nb=3):
     return commentaires_dico
 
 
-print(get_video_comments_words(
-    'vBFiBT2Z0EM', ["joue a", "joue", "qu'il", "qu"]))
+# print(get_video_comments_words(
+#    'vBFiBT2Z0EM', ["joue a", "joue", "qu'il", "qu"]))
+
+
+# OBJ:
+
+# def_get_comments_author(video_id, nom_utilisateur, nb=3):
