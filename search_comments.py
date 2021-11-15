@@ -18,6 +18,9 @@ def get_video_comments(video_id, nb=3):
     return(dico)
 
 
+#print(len(get_video_comments('vBFiBT2Z0EM', 100)))
+
+
 def get_video_replies(parent_id, nb=3):
     """chercher les réponse d'un commentaire avec toutes les infos de yt"""
     requete = requests.get("https://youtube.googleapis.com/youtube/v3/comments?part=snippet&parentId=" +
@@ -146,3 +149,19 @@ def get_video_replies_words(parent_id, liste_de_mots, nb=3):
 
 # print(get_video_replies_words('UgyXSKR2TSiAgzebL3R4AaABAg',
 #      ['bac+3', 'bac + 3', 'imbecile', 'imbécile']))
+
+
+def collect_comments_and_replies(video_id, nb):
+    commentaires_dico = {}
+    dico_comments = get_video_comments(video_id, nb)
+    for item in dico_comments['items']:
+        comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+        identifiant = item['id']
+        commentaires_dico[identifiant] = comment
+        if item['snippet']['totalReplyCount'] > 0:
+            dico_replies = get_video_replies_dico(item['id'], 100)
+            commentaires_dico.update(dico_replies)
+    return commentaires_dico
+
+
+#print(collect_comments_and_replies('vBFiBT2Z0EM', 100))
