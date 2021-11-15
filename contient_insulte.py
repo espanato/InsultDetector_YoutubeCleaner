@@ -35,3 +35,7 @@ def nb_insultes(comment, precision=1):
             nb = nb + 1
             l_insultes.append(mot.lower())
     return nb, l_insultes
+
+if __name__ == "main":
+    comment = "Sardoche joue avec sa copine on dirait vraiment qu'il est sous exta"
+    print(nb_insultes(comment))
