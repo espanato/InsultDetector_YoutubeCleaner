@@ -1,4 +1,7 @@
 bon
+bac
+moque
+big
 don
 on
 cone
@@ -41,3 +44,5 @@ tic
 fon
 unique
 nourriture
+(on
+ordre
