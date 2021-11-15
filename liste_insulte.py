@@ -4,3 +4,10 @@ with open("insultes.txt", "r") as fichier_insultes:
 
 # print(insultes)
 # print(type(insultes))
+
+with open("non_insultes.txt", "r") as fichier_non_insultes:
+    non_insultes = fichier_non_insultes.read().split("\n")
+
+if __name__ == "main":
+    print(insultes)
+    print(type(insultes))

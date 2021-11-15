@@ -82,10 +82,9 @@ def get_video_comments_words(video_id, liste_de_mots, nb=3):
     for item in dico['items']:
         comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
 
-        comment_words = list(m)
         for mot in liste_de_mots:
-            if mot in comment_words:
-                commentaires_dico[mot].add(commentformat(item))
+            if mot in comment:
+                commentaires_dico[mot].add(comment)
 
     # on rajoute une clé 'tout' dont la valeur est l'ensemble des tweets qui contienne tous les mots
     if len(liste_de_mots) > 1:
@@ -171,4 +170,4 @@ def dico_en_3(id1, id2, id3, nb):
     return collect_comments_and_replies(id1, nb), collect_comments_and_replies(id2, nb), collect_comments_and_replies(id3, nb)
 
 
-print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
+#print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
