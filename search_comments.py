@@ -18,7 +18,9 @@ def get_video_comments(video_id, nb=3):
     return(dico)
 
 
-#print(len(get_video_comments('vBFiBT2Z0EM', 100)))
+# print((get_video_comments('6janW0h3cZY', 100))
+
+def get_all_video_comments(video_id):
 
 
 def get_video_replies(parent_id, nb=3):
@@ -48,7 +50,7 @@ le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les texte
     return commentaires_dico
 
 
-# print(get_video_comments_info('vBFiBT2Z0EM', 3))
+#print(len(get_video_comments_user_name('vBFiBT2Z0EM', 3)))
 
 
 def get_video_comments_msg_id(video_id, nb=3):
@@ -96,8 +98,8 @@ def get_video_comments_words(video_id, liste_de_mots, nb=3):
     return commentaires_dico
 
 
-print(get_video_comments_words(
-    'vBFiBT2Z0EM', ["joue a", "joue", "qu'il", "qu"]))
+# print(get_video_comments_words(
+#    'vBFiBT2Z0EM', ["joue a", "joue", "qu'il", "qu"]))
 
 
 def get_video_replies_dico(parent_id, nb=3):
@@ -163,11 +165,11 @@ def collect_comments_and_replies(video_id, nb):
 
     return commentaires_dico
 
-#print(collect_comments_and_replies('vBFiBT2Z0EM', 100))
+# print(collect_comments_and_replies('vBFiBT2Z0EM', 100))
 
 
 def dico_en_3(id1, id2, id3, nb):
     return collect_comments_and_replies(id1, nb), collect_comments_and_replies(id2, nb), collect_comments_and_replies(id3, nb)
 
 
-#print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
+# print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
