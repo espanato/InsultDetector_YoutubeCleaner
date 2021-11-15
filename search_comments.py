@@ -3,6 +3,7 @@ import os
 from bs4 import BeautifulSoup
 import requests
 import csv
+from googleapiclient.discovery import build
 
 # chercher les commentaires d'une video avec toutes les infos de yt
 KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
@@ -144,6 +145,17 @@ def get_video_replies_words(parent_id, liste_de_mots, nb=3):
                 commentaires_dico[liste_de_mots[i]])
 
     return commentaires_dico
+
+
+def get_video_statistics(video_id):
+    """ renvoie views, likes, dislikes pour une vidéo donnée"""
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+    youtube = build('youtube',"v3",developerKey= KEY)
+    request = youtube.videos().list(part="statistics",id="8U14axFR88w").execute()
+    views = int(request['items'][0]['statistics']['viewCount'])
+    likes = int(request['items'][0]['statistics']['likeCount'])
+    dislikes = int(request['items'][0]['statistics']['dislikeCount'])
+    return views,likes,dislikes
 
 
 # print(get_video_replies_words('UgyXSKR2TSiAgzebL3R4AaABAg',
