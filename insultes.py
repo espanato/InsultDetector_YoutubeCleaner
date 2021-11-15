@@ -1,16 +1,11 @@
-from liste_insulte import insultes
-
-"""
-def levenshtein(a, b):
-    if not a: return len(b)
-    if not b: return len(a)
-    return min(levenshtein(a[1:], b[1:])+(a[0] != b[0]),
-               levenshtein(a[1:], b)+1,
-               levenshtein(a, b[1:])+1)
-"""
+from liste_insulte import insultes, non_insultes
 
 
 def distance(s, t):
+    """
+    renvoie la distance d'édition entre les mots s et t : 
+    la distance minimale pour passer du mot s au mot t avec des modifications élémentaires
+    """
     if s == t:
         return 0
     if len(s) == 0:

@@ -18,6 +18,9 @@ def get_video_comments(video_id, nb=3):
     return(dico)
 
 
+#print(len(get_video_comments('vBFiBT2Z0EM', 100)))
+
+
 def get_video_replies(parent_id, nb=3):
     """chercher les réponse d'un commentaire avec toutes les infos de yt"""
     requete = requests.get("https://youtube.googleapis.com/youtube/v3/comments?part=snippet&parentId=" +
@@ -31,10 +34,6 @@ def get_video_replies(parent_id, nb=3):
 # print(get_video_replies('UgyXSKR2TSiAgzebL3R4AaABAg'))
 
 
-def get_video_comments_info(video_id, nb=3):
-    #Renvoie une dictionnaire de commentaires
-    #chaque clé est l'identifiant d'un commentaire. Le commentaire est représenté par le dico {id,text,author,likeCount,replyCount}
-
 def get_video_comments_user_name(video_id, nb=3):
     """ OBJ: renvoie sous forme de dico les commentaires d'une vidéo
 le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les textes"""
@@ -42,8 +41,9 @@ le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les texte
     dico_comments = get_video_comments(video_id, nb)
 
     for item in dico_comments['items']:
-        identificator = item['id']
-        commentaires_dico[identificator] = commentformat(item)
+        user_name = item['snippet']['topLevelComment']['snippet']['authorDisplayName']
+        comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+        commentaires_dico[user_name] = comment
 
     return commentaires_dico
 
@@ -59,7 +59,7 @@ def get_video_comments_msg_id(video_id, nb=3):
     for item in dico_comments['items']:
         comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
         identifiant = item['id']
-        commentaires_dico[identifiant] = item
+        commentaires_dico[identifiant] = comment
     return commentaires_dico
 
 
@@ -147,3 +147,28 @@ def get_video_replies_words(parent_id, liste_de_mots, nb=3):
     return commentaires_dico
 
 
+# print(get_video_replies_words('UgyXSKR2TSiAgzebL3R4AaABAg',
+#      ['bac+3', 'bac + 3', 'imbecile', 'imbécile']))
+
+
+def collect_comments_and_replies(video_id, nb):
+    commentaires_dico = {}
+    dico_comments = get_video_comments(video_id, nb)
+    for item in dico_comments['items']:
+        comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+        identifiant = item['id']
+        commentaires_dico[identifiant] = comment
+        if item['snippet']['totalReplyCount'] > 0:
+            dico_replies = get_video_replies_dico(item['id'], 100)
+            commentaires_dico.update(dico_replies)
+
+    return commentaires_dico
+
+#print(collect_comments_and_replies('vBFiBT2Z0EM', 100))
+
+
+def dico_en_3(id1, id2, id3, nb):
+    return collect_comments_and_replies(id1, nb), collect_comments_and_replies(id2, nb), collect_comments_and_replies(id3, nb)
+
+
+print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
