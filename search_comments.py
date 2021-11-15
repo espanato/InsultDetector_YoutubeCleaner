@@ -151,7 +151,7 @@ def get_video_statistics(video_id):
     """ renvoie views, likes, dislikes pour une vidéo donnée"""
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
     youtube = build('youtube',"v3",developerKey= KEY)
-    request = youtube.videos().list(part="statistics",id="8U14axFR88w").execute()
+    request = youtube.videos().list(part="statistics",id=video_id).execute()
     views = int(request['items'][0]['statistics']['viewCount'])
     likes = int(request['items'][0]['statistics']['likeCount'])
     dislikes = int(request['items'][0]['statistics']['dislikeCount'])
