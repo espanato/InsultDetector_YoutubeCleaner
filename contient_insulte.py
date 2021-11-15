@@ -31,11 +31,7 @@ def nb_insultes(comment, precision=1):
     l_insultes = []
     l = fractionner_en_mots(comment)
     for mot in l:
-        if est_insulte(mot, precision=precision):
+        if est_insulte(mot.lower(), precision=precision):
             nb = nb + 1
-            l_insultes.append(mot)
+            l_insultes.append(mot.lower())
     return nb, l_insultes
-
-
-comment = "Sardoche joue avec sa copine on dirait vraiment qu'il est sous exta"
-print(nb_insultes(comment))
