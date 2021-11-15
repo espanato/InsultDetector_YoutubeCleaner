@@ -1,9 +1,11 @@
 import keyboard 
 import codecs
 import time
+from search_comments import dico_en_3
 
-dic = 
-for k,v in dic.items():
+dic1,dic2,dic3 = dico_en_3('TRY2eQju5nc','5r-ZsKH3uNE','6janW0h3cZY') 
+print('Prêt à commencer !')
+for k,v in dic1.items():
     i=1
     c=0
     print(v)
