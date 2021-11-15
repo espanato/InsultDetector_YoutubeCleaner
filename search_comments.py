@@ -7,16 +7,14 @@ import csv
 # chercher les commentaires d'une video avec toutes les infos de yt
 
 
-
 def commentformat(item):
-    #renvoie un dictionnaire de la forme {id,text,author,likeCount,replyCount}
+    # renvoie un dictionnaire de la forme {id,text,author,likeCount,replyCount}
     identificator = item['id']
     text = item['snippet']['topLevelComment']['snippet']['textDisplay']
     author = item['snippet']['topLevelComment']['snippet']['authorDisplayName']
     likeCount = item['snippet']['topLevelComment']['snippet']['likeCount']
     replyCount = item['snippet']['totalReplyCount']
-    return  {'id':identificator,'text':text,'author':author,'likeCount':likeCount,'replyCount':replyCount}
-
+    return {'id': identificator, 'text': text, 'author': author, 'likeCount': likeCount, 'replyCount': replyCount}
 
 
 def nettoyer_mot(mot):
