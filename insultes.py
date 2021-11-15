@@ -9,6 +9,7 @@ def levenshtein(a, b):
                levenshtein(a, b[1:])+1)
 """
 
+
 def distance(s, t):
     if s == t:
         return 0
@@ -30,30 +31,9 @@ def distance(s, t):
 
     return v1[len(t)]
 
-print(distance("caaevaevlt","ceavnljabvljahello"))
 
-
-def est_insulte(mot,precision=1):
-    for ins in insultes :
-        if distance(mot,ins) <= 1 :
+def est_insulte(mot, precision=1):
+    for ins in insultes:
+        if distance(mot, ins) <= 1:
             return True
     return False
-
-
-if __name__ == "main":
-    est_insulte("salope")
-
-
-
-"""
-arbre = {}
-def ajoute_mot(mot,arbre):
-    if len(mot) == 1 :
-        arbre[mot[0]] = True
-    else :
-        ajoute_mot(mot[0:],arbre[mot[0]])
-
-ajoute_mot("connard",arbre)
-"""
-
-        
