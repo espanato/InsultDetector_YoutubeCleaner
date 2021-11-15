@@ -35,8 +35,9 @@ def get_video_replies(parent_id, nb=3):
 
 
 def get_video_comments_info(video_id, nb=3):
-    #Renvoie une dictionnaire de commentaires
-    #chaque clé est l'identifiant d'un commentaire. Le commentaire est représenté par le dico {id,text,author,likeCount,replyCount}
+    # Renvoie une dictionnaire de commentaires
+    # chaque clé est l'identifiant d'un commentaire. Le commentaire est représenté par le dico {id,text,author,likeCount,replyCount}
+
 
 def get_video_comments_user_name(video_id, nb=3):
     """ OBJ: renvoie sous forme de dico les commentaires d'une vidéo
@@ -150,8 +151,6 @@ def get_video_replies_words(parent_id, liste_de_mots, nb=3):
     return commentaires_dico
 
 
-<<<<<<< HEAD
-=======
 # print(get_video_replies_words('UgyXSKR2TSiAgzebL3R4AaABAg',
 #      ['bac+3', 'bac + 3', 'imbecile', 'imbécile']))
 
@@ -166,8 +165,11 @@ def collect_comments_and_replies(video_id, nb):
         if item['snippet']['totalReplyCount'] > 0:
             dico_replies = get_video_replies_dico(item['id'], 100)
             commentaires_dico.update(dico_replies)
+
     return commentaires_dico
 
-
 #print(collect_comments_and_replies('vBFiBT2Z0EM', 100))
->>>>>>> Tomas
+
+
+def dico_en_3(id1, id2, id3, nb):
+    return collect_comments_and_replies(id1, nb), collect_comments_and_replies(id2, nb), collect_comments_and_replies(id3, nb)
