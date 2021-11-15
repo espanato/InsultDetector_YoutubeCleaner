@@ -7,16 +7,6 @@ import csv
 # chercher les commentaires d'une video avec toutes les infos de yt
 
 
-def commentformat(item):
-    # renvoie un dictionnaire de la forme {id,text,author,likeCount,replyCount}
-    identificator = item['id']
-    text = item['snippet']['topLevelComment']['snippet']['textDisplay']
-    author = item['snippet']['topLevelComment']['snippet']['authorDisplayName']
-    likeCount = item['snippet']['topLevelComment']['snippet']['likeCount']
-    replyCount = item['snippet']['totalReplyCount']
-    return {'id': identificator, 'text': text, 'author': author, 'likeCount': likeCount, 'replyCount': replyCount}
-
-
 def get_video_comments(video_id, nb=3):
     requete = requests.get(
         "https://youtube.googleapis.com/youtube/v3/commentThreads?key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs&part=snippet&videoId="+video_id+"&textFormat=plainText"+"&maxResults="+str(nb))
