@@ -1,5 +1,4 @@
-from liste_insulte import insultes,non_insultes
-
+from liste_insulte import insultes, non_insultes
 
 
 def distance(s, t):
@@ -28,37 +27,8 @@ def distance(s, t):
     return v1[len(t)]
 
 
-
-def est_insulte(mot,precision=1):
-    """
-    renvoie si le mot donné en paramètre est une insulte avec la tolérance précision
-    """
-    for ins in insultes :
-        if distance(mot,ins) <= 1 :
-            return not(mot in non_insultes)
+def est_insulte(mot, precision=1):
+    for ins in insultes:
+        if distance(mot, ins) <= 1:
+            return True
     return False
-
-
-if __name__ == "main":
-    print(distance("caaevaevlt","ceavnljabvljahello"))
-    est_insulte("salope")
-
-
-
-
-
-
-
-
-"""
-arbre = {}
-def ajoute_mot(mot,arbre):
-    if len(mot) == 1 :
-        arbre[mot[0]] = True
-    else :
-        ajoute_mot(mot[0:],arbre[mot[0]])
-
-ajoute_mot("connard",arbre)
-"""
-
-        

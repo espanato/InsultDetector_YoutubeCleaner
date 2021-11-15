@@ -96,8 +96,8 @@ def get_video_comments_words(video_id, liste_de_mots, nb=3):
     return commentaires_dico
 
 
-# print(get_video_comments_words(
-#    'vBFiBT2Z0EM', ["joue a", "joue", "qu'il", "qu"]))
+print(get_video_comments_words(
+    'vBFiBT2Z0EM', ["joue a", "joue", "qu'il", "qu"]))
 
 
 def get_video_replies_dico(parent_id, nb=3):
