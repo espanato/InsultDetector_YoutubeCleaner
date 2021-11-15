@@ -1,4 +1,4 @@
-from liste_insulte import insultes
+from liste_insulte import insultes,non_insultes
 
 
 
@@ -35,7 +35,7 @@ def est_insulte(mot,precision=1):
     """
     for ins in insultes :
         if distance(mot,ins) <= 1 :
-            return True
+            return not(mot in non_insultes)
     return False
 
 
