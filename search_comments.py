@@ -8,6 +8,7 @@ import csv
 
 
 def get_video_comments(video_id, nb=3):
+    """Renvoie un dictionnaire contenant nb commentaires de la video"""
     requete = requests.get(
         "https://youtube.googleapis.com/youtube/v3/commentThreads?key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs&part=snippet&videoId="+video_id+"&textFormat=plainText"+"&maxResults="+str(nb))
     page = requete.content
@@ -16,8 +17,8 @@ def get_video_comments(video_id, nb=3):
     return(dico)
 
 
-# chercher les réponse d'un commentaire avec toutes les infos de yt
 def get_video_replies(parent_id, nb=3):
+    """chercher les réponse d'un commentaire avec toutes les infos de yt"""
     requete = requests.get("https://youtube.googleapis.com/youtube/v3/comments?part=snippet&parentId=" +
                            parent_id+"&textFormat=plainText&key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"+"&maxResults="+str(nb))
     page = requete.content
@@ -33,6 +34,8 @@ def get_video_replies(parent_id, nb=3):
 # le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les textes
 
 def get_video_comments_user_name(video_id, nb=3):
+    """ OBJ: renvoie sous forme de dico les commentaires d'une vidéo
+le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les textes"""
     commentaires_dico = {}
     dico_comments = get_video_comments(video_id, nb)
     for item in dico_comments['items']:
@@ -45,10 +48,9 @@ def get_video_comments_user_name(video_id, nb=3):
 # print(get_video_comments_info('vBFiBT2Z0EM', 3))
 
 
-# OBJ: idem qu'avant mais cette fois
-# le dico: les clés sont les id des commentaires, les valeurs sont les textes
-
 def get_video_comments_msg_id(video_id, nb=3):
+    """OBJ: idem qu'avant mais cette fois
+ le dico: les clés sont les id des commentaires, les valeurs sont les textes"""
     commentaires_dico = {}
     dico_comments = get_video_comments(video_id, nb)
     for item in dico_comments['items']:
@@ -61,9 +63,8 @@ def get_video_comments_msg_id(video_id, nb=3):
 # print(get_video_comments_msg_id('vBFiBT2Z0EM'))
 
 
-# OBJ: filtrer les commentaires qui possèdent les mots d'une liste de mots
-
 def get_video_comments_words(video_id, liste_de_mots, nb=3):
+    """Filtre les commentaires qui possèdent les mots d'une liste de mots"""
     commentaires_dico = {}
     requete = requests.get(
         "https://youtube.googleapis.com/youtube/v3/commentThreads?key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs&part=snippet&videoId="+video_id+"&textFormat=plainText"+"&maxResults="+str(nb))
@@ -96,10 +97,9 @@ def get_video_comments_words(video_id, liste_de_mots, nb=3):
 #    'vBFiBT2Z0EM', ["joue a", "joue", "qu'il", "qu"]))
 
 
-# OBJ: renvoie sous forme de dico les réponses d'un commentaire
-# le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les textes
-
 def get_video_replies_dico(parent_id, nb=3):
+    """OBJ: renvoie sous forme de dico les réponses d'un commentaire
+le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les textes"""
     reponses_dico = {}
     dico_comments = get_video_replies(parent_id, nb)
     for item in dico_comments['items']:
@@ -112,9 +112,8 @@ def get_video_replies_dico(parent_id, nb=3):
 # print(get_video_replies_dico('UgyXSKR2TSiAgzebL3R4AaABAg'))
 
 
-# OBJ: filtrer les réponses qui possèdent les mots d'une liste de mots
-
 def get_video_replies_words(parent_id, liste_de_mots, nb=3):
+    """OBJ: filtrer les réponses qui possèdent les mots d'une liste de mots"""
     commentaires_dico = {}
     requete = requests.get(
         "https://youtube.googleapis.com/youtube/v3/comments?part=snippet&parentId=" +
