@@ -5,6 +5,7 @@ import requests
 import csv
 
 # chercher les commentaires d'une video avec toutes les infos de yt
+KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 
 
 def commentformat(item):
@@ -20,7 +21,7 @@ def commentformat(item):
 def get_video_comments(video_id, nb=3):
     """Renvoie un dictionnaire contenant nb commentaires de la video"""
     requete = requests.get(
-        "https://youtube.googleapis.com/youtube/v3/commentThreads?key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs&part=snippet&videoId="+video_id+"&textFormat=plainText"+"&maxResults="+str(nb))
+        "https://youtube.googleapis.com/youtube/v3/commentThreads?key="+KEY+"&part=snippet&videoId="+video_id+"&textFormat=plainText"+"&maxResults="+str(nb))
     page = requete.content
     soup = BeautifulSoup(page, features='html.parser')
     dico = json.loads(str(soup))
@@ -30,7 +31,7 @@ def get_video_comments(video_id, nb=3):
 def get_video_replies(parent_id, nb=3):
     """chercher les réponse d'un commentaire avec toutes les infos de yt"""
     requete = requests.get("https://youtube.googleapis.com/youtube/v3/comments?part=snippet&parentId=" +
-                           parent_id+"&textFormat=plainText&key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"+"&maxResults="+str(nb))
+                           parent_id+"&textFormat=plainText&key="+KEY+""+"&maxResults="+str(nb))
     page = requete.content
     soup = BeautifulSoup(page, features='html.parser')
     dico = json.loads(str(soup))
@@ -77,7 +78,7 @@ def get_video_comments_words(video_id, liste_de_mots, nb=3):
     """Filtre les commentaires qui possèdent les mots d'une liste de mots"""
     commentaires_dico = {}
     requete = requests.get(
-        "https://youtube.googleapis.com/youtube/v3/commentThreads?key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs&part=snippet&videoId="+video_id+"&textFormat=plainText"+"&maxResults="+str(nb))
+        "https://youtube.googleapis.com/youtube/v3/commentThreads?key="+KEY+"&part=snippet&videoId="+video_id+"&textFormat=plainText"+"&maxResults="+str(nb))
     page = requete.content
     soup = BeautifulSoup(page, features='html.parser')
     dico = json.loads(str(soup))
@@ -127,7 +128,7 @@ def get_video_replies_words(parent_id, liste_de_mots, nb=3):
     commentaires_dico = {}
     requete = requests.get(
         "https://youtube.googleapis.com/youtube/v3/comments?part=snippet&parentId=" +
-        parent_id+"&textFormat=plainText&key=AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"+"&maxResults="+str(nb))
+        parent_id+"&textFormat=plainText&key="+KEY+""+"&maxResults="+str(nb))
     page = requete.content
     soup = BeautifulSoup(page, features='html.parser')
     dico = json.loads(str(soup))
