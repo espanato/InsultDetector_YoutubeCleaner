@@ -29,6 +29,6 @@ def distance(s, t):
 
 def est_insulte(mot, precision=1):
     for ins in insultes:
-        if distance(mot, ins) <= 1:
-            return not(mot in non_insultes)
+        if distance(mot.lower(), ins) <= 1:
+            return not(mot.lower() in non_insultes)
     return False
