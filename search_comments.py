@@ -21,8 +21,6 @@ def get_video_comments(video_id, nb=3):
 
 # print((get_video_comments('6janW0h3cZY', 100))
 
-def get_all_video_comments(video_id):
-
 
 def get_video_replies(parent_id, nb=3):
     """chercher les réponse d'un commentaire avec toutes les infos de yt"""
@@ -51,7 +49,7 @@ le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les texte
     return commentaires_dico
 
 
-#print(len(get_video_comments_user_name('vBFiBT2Z0EM', 3)))
+# print(len(get_video_comments_user_name('vBFiBT2Z0EM', 3)))
 
 
 def get_video_comments_msg_id(video_id, nb=3):
@@ -162,6 +160,50 @@ def get_video_statistics(video_id):
 
 # print(get_video_replies_words('UgyXSKR2TSiAgzebL3R4AaABAg',
 #      ['bac+3', 'bac + 3', 'imbecile', 'imbécile']))
+
+
+def get_comments_page_token(video_id, page_token=''):
+    commentaires_dico = {}
+    requete = requests.get(
+        "https://youtube.googleapis.com/youtube/v3/commentThreads?key="+KEY+"&part=snippet&videoId="+video_id+"&textFormat=plainText"+"&maxResults=100"+"&pageToken="+page_token)
+    page = requete.content
+    soup = BeautifulSoup(page, features='html.parser')
+    dico_comments = json.loads(str(soup))
+    for item in dico_comments['items']:
+        comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+        identifiant = item['id']
+        commentaires_dico[identifiant] = comment
+    return commentaires_dico
+
+
+def get_video_comments_page_token(video_id, page_token=''):
+    """Renvoie un dictionnaire contenant nb commentaires de la video"""
+    requete = requests.get(
+        "https://youtube.googleapis.com/youtube/v3/commentThreads?key="+KEY+"&part=snippet&videoId="+video_id+"&textFormat=plainText&maxResults=100"+"&pageToken="+page_token)
+    page = requete.content
+    soup = BeautifulSoup(page, features='html.parser')
+    dico = json.loads(str(soup))
+    return(dico)
+
+
+def get_all_comments(video_id, page_token=''):
+    try:
+        commentaires_dico = get_comments_page_token(video_id, page_token)
+        dico = get_video_comments_page_token(video_id, page_token)
+        page_token = dico['nextPageToken']
+        commentaires_dico.update(get_all_comments(str(video_id), page_token))
+        return commentaires_dico
+
+    except KeyError:
+        commentaires_dico = get_comments_page_token(video_id)
+        return commentaires_dico
+
+
+# print(get_all_comments('DHiTuMboqVI'))
+print(get_all_comments('DHiTuMboqVI'))
+print(len(get_all_comments('U2NNTHUp9r8')))
+
+# def get_all(video_id):
 
 
 def collect_comments_and_replies(video_id, nb):
