@@ -8,16 +8,6 @@ import csv
 KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 
 
-def commentformat(item):
-    """Renvoie un dictionnaire de la forme {id,text,author,likeCount,replyCount}"""
-    identificator = item['id']
-    text = item['snippet']['topLevelComment']['snippet']['textDisplay']
-    author = item['snippet']['topLevelComment']['snippet']['authorDisplayName']
-    likeCount = item['snippet']['topLevelComment']['snippet']['likeCount']
-    replyCount = item['snippet']['totalReplyCount']
-    return {'id': identificator, 'text': text, 'author': author, 'likeCount': likeCount, 'replyCount': replyCount}
-
-
 def get_video_comments(video_id, nb=3):
     """Renvoie un dictionnaire contenant nb commentaires de la video"""
     requete = requests.get(
