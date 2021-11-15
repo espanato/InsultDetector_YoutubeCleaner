@@ -4,8 +4,19 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 
-# OBJ: renvoie sous forme de dico les commentaires d'une vidéo en particulier
-# le dico: les clés sont les pseudos des utilisateurs, les valeurs sont leurs commentaires
+# chercher les commentaires d'une video avec toutes les infos de yt
+
+
+
+def commentformat(item):
+    #renvoie un dictionnaire de la forme {id,text,author,likeCount,replyCount}
+    identificator = item['id']
+    text = item['snippet']['topLevelComment']['snippet']['textDisplay']
+    author = item['snippet']['topLevelComment']['snippet']['authorDisplayName']
+    likeCount = item['snippet']['topLevelComment']['snippet']['likeCount']
+    replyCount = item['snippet']['totalReplyCount']
+    return  {'id':identificator,'text':text,'author':author,'likeCount':likeCount,'replyCount':replyCount}
+
 
 
 def nettoyer_mot(mot):
@@ -47,11 +58,26 @@ def get_video_comments_info(video_id, nb=3):
     return commentaires_dico
 
 
-#print(get_video_comments_info('vBFiBT2Z0EM', 3))
+# print(get_video_comments_info('vBFiBT2Z0EM', 3))
 
 
-# OBJ: filtrer les commentaires qui possèdent une liste de mots
-# pour une vidéo, on filtre les commentaires qui incluent les mots dans la liste en argument
+# OBJ: idem qu'avant mais cette fois
+# le dico: les clés sont les id des commentaires, les valeurs sont les textes
+
+def get_video_comments_msg_id(video_id, nb=3):
+    commentaires_dico = {}
+    dico_comments = get_video_comments(video_id, nb)
+    for item in dico_comments['items']:
+        comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+        identifiant = item['id']
+        commentaires_dico[identifiant] = item
+    return commentaires_dico
+
+
+# print(get_video_comments_msg_id('vBFiBT2Z0EM'))
+
+
+# OBJ: filtrer les commentaires qui possèdent les mots d'une liste de mots
 
 def get_video_comments_words(video_id, liste_de_mots, nb=3):
     commentaires_dico = {}
@@ -68,7 +94,7 @@ def get_video_comments_words(video_id, liste_de_mots, nb=3):
     for item in dico['items']:
         comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
 
-        comment_words = list(map(nettoyer_mot,comment.split()))
+        comment_words = list(m)
         for mot in liste_de_mots:
             if mot in comment_words:
                 commentaires_dico[mot].add(commentformat(item))
