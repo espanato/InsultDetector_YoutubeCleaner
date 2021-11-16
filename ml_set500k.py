@@ -1,4 +1,4 @@
-import pandas as pd
+import pdas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
@@ -10,8 +10,11 @@ import re
 import time
 
 ti = time.time()
-data = pd.read_csv('C:/Users/Charly Bohard/Documents/PythonScripts/jigsaw-toxic-comment-classification-challenge/train.csv')
-data = data.drop(['id','toxic','identity_hate','severe_toxic','obscene','threat'],axis=1)
+data = pd.read_csv(
+    'C:/Users/etoma/OneDrive/Documents/jigsaw-toxic-comment-classification-challenge-bis/train.csv')
+data = data.drop(['id', 'toxic', 'identity_hate',
+                  'severe_toxic', 'obscene', 'threat'], axis=1)
+
 X, y = data["comment_text"], data['insult']
 
 documents = []
@@ -46,7 +49,7 @@ for sen in range(0, len(X)):
     documents.append(document)
 
 vectorizer = CountVectorizer(
-    max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('french'))
+    max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
 X = vectorizer.fit_transform(documents).toarray()
 
 tfidfconverter = TfidfTransformer()
@@ -64,5 +67,5 @@ print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 print(accuracy_score(y_test, y_pred))
 
-tf = time.time
+tf = time.time()
 print(tf-ti)
