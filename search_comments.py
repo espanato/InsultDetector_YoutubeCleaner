@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 from googleapiclient.discovery import build
+from requests.api import get
 
 # chercher les commentaires d'une video avec toutes les infos de yt
 KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
@@ -186,22 +187,22 @@ def get_video_comments_page_token(video_id, page_token=''):
     return(dico)
 
 
-def get_all_comments(video_id, page_token=''):
-    try:
-        commentaires_dico = get_comments_page_token(video_id, page_token)
-        dico = get_video_comments_page_token(video_id, page_token)
+def get_all_comments(video_id):
+    dico = get_video_comments(video_id, 100)
+    commentaires_dico = get_video_comments_msg_id(
+        video_id, 100)
+    while 'nextPageToken' in dico:
         page_token = dico['nextPageToken']
-        commentaires_dico.update(get_all_comments(str(video_id), page_token))
-        return commentaires_dico
+        new_dico = get_comments_page_token(video_id, page_token)
+        commentaires_dico.update(new_dico)
+        dico = get_video_comments_page_token(video_id, page_token)
 
-    except KeyError:
-        commentaires_dico = get_comments_page_token(video_id)
-        return commentaires_dico
+    return commentaires_dico
 
 
 # print(get_all_comments('DHiTuMboqVI'))
-print(get_all_comments('DHiTuMboqVI'))
-print(len(get_all_comments('U2NNTHUp9r8')))
+# print(get_all_comments('DHiTuMboqVI'))
+print(len(get_all_comments('__HigGObD8U')))
 
 # def get_all(video_id):
 
