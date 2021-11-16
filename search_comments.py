@@ -202,9 +202,67 @@ def get_all_comments(video_id):
 
 # print(get_all_comments('DHiTuMboqVI'))
 # print(get_all_comments('DHiTuMboqVI'))
-print(len(get_all_comments('__HigGObD8U')))
+# print(len(get_all_comments('__HigGObD8U')))
 
-# def get_all(video_id):
+def get_video_replies_page_token(parent_id, page_token):
+    """chercher les réponse d'un commentaire avec toutes les infos de yt"""
+    requete = requests.get("https://youtube.googleapis.com/youtube/v3/comments?part=snippet&parentId=" +
+                           parent_id+"&textFormat=plainText&key="+KEY+""+"&maxResults=100&pageToken="+page_token)
+    page = requete.content
+    soup = BeautifulSoup(page, features='html.parser')
+    dico = json.loads(str(soup))
+    return(dico)
+
+
+def get_video_replies_dico_page_token(parent_id, page_token):
+    """OBJ: renvoie sous forme de dico les réponses d'un commentaire
+le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les textes"""
+    reponses_dico = {}
+    dico_comments = get_video_replies_page_token(parent_id, page_token)
+    for item in dico_comments['items']:
+        comment = item['snippet']['textDisplay']
+        id = item['id']
+        reponses_dico[id] = comment
+    return reponses_dico
+
+
+def get_all_replies(parent_id):
+    dico = get_video_replies(parent_id, 100)
+    commentaires_dico = get_video_replies_dico(parent_id, 100)
+    while 'nextPageToken' in dico:
+        page_token = dico['nextPageToken']
+        new_dico = get_video_replies_dico_page_token(video_id, page_token)
+        commentaires_dico.update(new_dico)
+        dico = get_video_replies_page_token(video_id, page_token)
+
+    return commentaires_dico
+
+
+def get_all(video_id):
+    commentaires_dico = {}
+    dico_comments = get_video_comments(video_id, 100)
+    for item in dico_comments['items']:
+        comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+        identifiant = item['id']
+        commentaires_dico[identifiant] = comment
+        if item['snippet']['totalReplyCount'] > 0:
+            dico_replies = get_all_replies(item['id'])
+            commentaires_dico.update(dico_replies)
+
+    while 'nextPageToken' in dico_comments:
+        page_token = dico_comments['nextPageToken']
+        dico_comments = get_video_comments_page_token(video_id, page_token)
+        for item in dico_comments['items']:
+            comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+            identifiant = item['id']
+            commentaires_dico[identifiant] = comment
+            if item['snippet']['totalReplyCount'] > 0:
+                dico_replies = get_all_replies(item['id'])
+                commentaires_dico.update(dico_replies)
+    return commentaires_dico
+
+
+# print(len(get_all('th5_9woFJmk')))
 
 
 def collect_comments_and_replies(video_id, nb):
