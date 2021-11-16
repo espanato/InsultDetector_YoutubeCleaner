@@ -1,6 +1,15 @@
 from tkinter import *
 import webbrowser
+import pyperclip as pc
+from fonctions import reconnait_lien
+
 bg_color = '#262525'
+
+
+def remplace_entree(entree, text):
+    """Cette fonction remplace le contenue de entrée par text"""
+    entree.delete(0, END)
+    entree.insert(0, text)
 
 
 window = Tk()
@@ -10,25 +19,36 @@ window.geometry("1080x720")
 window.iconbitmap("GUI/logo.ico")
 window.config(background=bg_color)
 
-frame = Frame(window, bg=bg_color)
 
+frame = Frame(window, bg=bg_color)
+logo = PhotoImage(file="GUI/logo.png")
+panel = Label(frame, image=logo)
+panel.pack(side=TOP)
+frame_entree_pc = Frame(frame, bg=bg_color)
 
 label_title = Label(
     frame, text="Rentrez l'url d'une vidéo ou d'une chaîne Youtube", font=("Courrier", 26), bg=bg_color, fg='white')
 label_title.pack()
 
-entree = Entry(frame, textvariable="URL")
-entree.pack(fill=X)
+entree = Entry(frame_entree_pc, textvariable=StringVar(
+    frame_entree_pc, value=pc.paste()), font=('Arial', 18))
+entree.pack(side=TOP, fill=X)
+
+logo_pc = PhotoImage(file="GUI/pc_logo.png")
+logo_pc = logo_pc.subsample(x=2, y=2)
+bouton_pc = Button(frame_entree_pc, image=logo_pc,
+                   command=lambda: remplace_entree(entree, pc.paste()))
+bouton_pc.pack(side=LEFT)
 
 
-def print_entree():
-    print(entree.get())
+frame_entree_pc.pack(fill=X)
 
 
 photo = PhotoImage(file="GUI/logo.png")
 bouton = Button(frame, text="GO !", font=("Courrier", 20),
-                bg='red', fg='white',  height=1, width=10, default='active', command=print_entree)
+                bg='red', fg='white',  height=1, width=10, command=lambda: reconnait_lien(entree.get()))
 bouton.pack(expand=YES)
+
 
 frame.pack(expand=YES)
 
@@ -48,3 +68,6 @@ bouton_gitlab = Button(window, text="Pouii",
 bouton_gitlab.place(rely=1.0, relx=1.0, x=0, y=0, anchor=SE)
 
 window.mainloop()
+
+
+print("yes")
