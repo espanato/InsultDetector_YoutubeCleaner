@@ -2,21 +2,22 @@ from search_comments import *
 from contient_insulte import *
 
 
-def get_video_all_comments_list(video_id, nb=3):
-    """OBJ: récupérer la liste des commentaires
+def get_all_list(video_id):
+    """OBJ: récupérer la liste de tous les commentaires
     la liste : les valeurs sont les textes des commentaires"""
     commentaires_liste = []
-    dico_comments = get_video_comments(video_id, nb)
-    for item in dico_comments['items']:
-        comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
-        commentaires_liste.append(comment)
+    dico_comments = get_all(video_id)
+    for text in dico_comments.values():
+        commentaires_liste.append(text)
     return commentaires_liste
+
+# print(get_all_list("vBFiBT2Z0EM"))
 
 
 def percent_insultes(video_id):
     """OBJ : récupérer le pourcentage de commentaires insultants
-    et le nombre moyen d'insultes par message insultant"""
-    l_comm = get_video_all_comments_list(video_id, 100)
+    et la liste des insultes correspondantes dans chaque message"""
+    l_comm = get_all_list(video_id)
     l_insultes = []
     n = 0
     for comm in l_comm:
@@ -27,4 +28,4 @@ def percent_insultes(video_id):
     return n/len(l_comm) * 100, l_insultes
 
 
-print(percent_insultes("fglVkx5E29U"))
+print(percent_insultes("vBFiBT2Z0EM"))

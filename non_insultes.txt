@@ -41,3 +41,5 @@ tic
 fon
 unique
 nourriture
+com
+bac
