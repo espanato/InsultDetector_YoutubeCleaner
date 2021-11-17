@@ -52,3 +52,9 @@ zon
 ordre
 (on
 pique
+poche
+coq
+poux
+bouffe
+bouffe
+choque
