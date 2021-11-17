@@ -9,8 +9,8 @@ from googleapiclient.discovery import build
 from pourcentage_insultes import percent_insultes
 from channel_videos import get_video_title
 
-
-KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
+# KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
+KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
 youtube = build('youtube',"v3",developerKey= KEY)
 
 def search_video_channel(word,type_search='video'):
@@ -33,14 +33,15 @@ def search_video_channel(word,type_search='video'):
 
 def app_dash(input,type):
     if type =='video':
-        insul_perc = percent_insultes(id)
+        insul_perc = percent_insultes(input)[0]
+        video_name = get_video_title(input)
         data = pd.DataFrame({  
             "video":[input, input],
             'stats':[100-insul_perc,insul_perc]
         })
     elif type =='channel':
         video_id, perc = most_insulted_video(input, 10)
-        video_name = 
+        video_name = get_video_title(video_id)
         data = pd.DataFrame({  
             "video":[input, input],
             'stats':[100-perc,perc]
@@ -62,14 +63,14 @@ def app_dash(input,type):
 
     app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
         html.H1(
-            children='Hello Dash',
+            children='Youtube Cleaner',
             style={
                 'textAlign': 'center',
                 'color': colors['text']
             }
         ),
 
-        html.Label('URL ou recherche',style = {
+        html.Label('URL ou Recherche',style = {
                 'textAlign': 'center',
                 'color': colors['text']
             }),
@@ -91,7 +92,7 @@ def app_dash(input,type):
                 clearable = None
             ),
 
-        html.Div(children='Visualisation toxicité commentaires', style={
+        html.Div(children=f'Vidéo : {video_name}', style={
             'textAlign': 'center',
             'color': colors['text']
         }),
@@ -112,17 +113,19 @@ def app_dash(input,type):
     def update_figure(n_clicks, text, dropdown):
         
         if dropdown == 'video':
-            data_f = pd.DataFrame({
+            perc = percent_insultes(input)[0]
+            data = pd.DataFrame({
                 'video':[text,text],
-                'stats':[50,50]
+                'stats':[100-perc,perc]
             })
-            fig = px.pie(data_f, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
+            fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
         elif dropdown =='channel':
-            data_f = pd.DataFrame({
-                'video':[text,text],
-                'stats':[67,33]
+            video_id, perc = most_insulted_video(input, 10)
+            data = pd.DataFrame({  
+                "video":[input, input],
+                'stats':[100-perc,perc]
             })
-            fig = px.pie(data_f, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
+            fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
         fig.update_layout(
             plot_bgcolor=colors['background'],
             paper_bgcolor=colors['background'],
@@ -132,4 +135,4 @@ def app_dash(input,type):
     
     app.run_server(debug=True)
 
-app_dash("TRY2eQju5nc")
+app_dash("zooHc3m9mWE",'video')
