@@ -291,7 +291,9 @@ def dico_en_3(id1, id2, id3, nb):
 
 
 def search_video_channel(word,type_search='video'):
-    
+    """renvoie la vidéo ou la chaîne youtube la plus adaptée à la recherche spécifiée dans word
+    type_search = 'video' : recherche sur les vidéos
+    type_search = 'channel' : recherche sur les chaînes"""
     youtube = build('youtube',"v3",developerKey= KEY)
     if type_search == 'video':
         request = youtube.search().list(part='snippet',type='video',maxResults=1,q=word).execute()
