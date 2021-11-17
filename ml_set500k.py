@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import re
-
+import time
 
 data = pd.read_csv(
     'C:/Users/etoma/OneDrive/Documents/jigsaw-toxic-comment-classification-challenge-bis/train.csv')
@@ -66,9 +66,10 @@ for sen in range(0, len(X)):
 # print(accuracy_score(y_test, y_pred))
 
 def opti_hyperpara():
+    ti = time.time()
     precision = 0
     max_feat_opti = 0
-    for n in range(2000, 5001, 1000):
+    for n in range(3000, 5001, 1000):
         vectorizer = CountVectorizer(
             max_features=n, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
         X = vectorizer.fit_transform(documents).toarray()
@@ -88,6 +89,8 @@ def opti_hyperpara():
             max_feat_opti = n
             precision = recall
         print(n, ' : ', recall)
+        tf = time.time()
+        print(tf-ti)
     print(f'Précision de {precision} pour max_features = {max_feat_opti}')
 
 

@@ -262,7 +262,7 @@ def get_all(video_id):
     return commentaires_dico
 
 
-# print(len(get_all('th5_9woFJmk')))
+# print(get_all('DHiTuMboqVI'))
 
 
 def collect_comments_and_replies(video_id, nb):
@@ -287,3 +287,6 @@ def dico_en_3(id1, id2, id3, nb):
 
 
 # print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
+
+
+# calculer la proportion de gens qui insultent parmi les dislikes
