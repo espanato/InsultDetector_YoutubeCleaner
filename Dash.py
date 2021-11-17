@@ -6,6 +6,7 @@ import pandas as pd
 from dash.dependencies import Input, Output, State
 from most_insulted_video import most_insulted_video
 
+<<<<<<< HEAD
 
 KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 youtube = build('youtube',"v3",developerKey= KEY)
@@ -29,11 +30,15 @@ def search_video_channel(word,type_search='video'):
 
 
 def dash_channel(video_name):
+=======
+def dash_channel(video_id):
+    video_name = get_video_name(video_id)
+>>>>>>> 6a9fe7b (Dash)
     data = pd.DataFrame({  
         "video":[video_name, video_name],
         'stats':[93.6,6.4]
     })
-    options = [{'label':'channel', 'value':'channel'},{'label':'video','value':'video'}]
+    options = [{'label':'chaîne', 'value':'chaîne'},{'label':'video','value':'video'}]
     app = dash.Dash(__name__)
     colors = {
         'background': '#111111',
@@ -49,7 +54,7 @@ def dash_channel(video_name):
 
     app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
         html.H1(
-            children='Hello Dash',
+            children='YoutubeCleaner',
             style={
                 'textAlign': 'center',
                 'color': colors['text']
@@ -62,7 +67,7 @@ def dash_channel(video_name):
             }),
             dcc.Input(id = 'text',value='', type='text'),
         html.Button(id='button', n_clicks=0, children='Go !'),
-        dcc.RadioItems(id = 'radioitems', options = [{'label':'URL', 'value':'URL'},{'label':'recherche','value':'recherche'}], value = 'URL',style = {
+        dcc.RadioItems(id = 'radioitems', options = [{'label':'URL', 'value':'URL'},{'label':'Recherche','value':'Recherche'}], value = 'URL',style = {
                 'color': colors['text']
             }),
 
@@ -104,7 +109,7 @@ def dash_channel(video_name):
                 'stats':[50,50]
             })
             fig = px.pie(data_f, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
-        elif dropdown =='channel':
+        elif dropdown =='chaîne':
             data_f = pd.DataFrame({
                 'video':[text,text],
                 'stats':[67,33]
