@@ -9,8 +9,10 @@ from nltk.corpus import stopwords
 import re
 
 
-data = pd.read_csv('C:/Users/Charly Bohard/Documents/PythonScripts/jigsaw-toxic-comment-classification-challenge/train.csv')
-data = data.drop(['id','toxic','identity_hate','severe_toxic','obscene','threat'],axis=1)
+data = pd.read_csv(
+    'C:/Users/etoma/OneDrive/Documents/jigsaw-toxic-comment-classification-challenge-bis/train.csv')
+data = data.drop(['id', 'toxic', 'identity_hate',
+                 'severe_toxic', 'obscene', 'threat'], axis=1)
 X, y = data["comment_text"], data['insult']
 
 documents = []
@@ -66,9 +68,9 @@ for sen in range(0, len(X)):
 def opti_hyperpara():
     precision = 0
     max_feat_opti = 0
-    for n in range(2000,5001,1000):
+    for n in range(2000, 5001, 1000):
         vectorizer = CountVectorizer(
-        max_features=n, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
+            max_features=n, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
         X = vectorizer.fit_transform(documents).toarray()
 
         tfidfconverter = TfidfTransformer()
@@ -80,12 +82,13 @@ def opti_hyperpara():
         classifier = RandomForestClassifier(n_estimators=2000, random_state=0)
         classifier.fit(X_train, y_train)
         y_pred = classifier.predict(X_test)
-        mat = confusion_matrix(y_test,y_pred)
+        mat = confusion_matrix(y_test, y_pred)
         recall = mat[1][1] / (mat[1][0]+mat[1][1])
         if recall > precision:
             max_feat_opti = n
             precision = recall
-        print(n,' : ',recall)
-    print(f'Précision de {precision} pour n_estimators = {max_feat_opti}')
+        print(n, ' : ', recall)
+    print(f'Précision de {precision} pour max_features = {max_feat_opti}')
+
 
 opti_hyperpara()
