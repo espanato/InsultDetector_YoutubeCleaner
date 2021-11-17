@@ -15,6 +15,7 @@ ETAPES:
       1) Récupérer les commentaires youtube/comprendre le fonctionnement de l’API
 Récupérer les commentaires via l’API
 Fonction qui stocke les commentaires dans une liste
+Récupérer les vidéos les plus vues d'une chaîne
 
       2) Déterminer la polarité d’un message 
 Trouver le module à utiliser
