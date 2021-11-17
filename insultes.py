@@ -1,4 +1,4 @@
-from liste_insulte import insultes, non_insultes
+from liste_insulte import *
 
 
 def distance(s, t):
