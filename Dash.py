@@ -5,17 +5,48 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output, State
 from most_insulted_video import most_insulted_video
+from googleapiclient.discovery import build
+from pourcentage_insultes import percent_insultes
+from channel_videos import get_video_title
+
+# KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
+KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
+youtube = build('youtube',"v3",developerKey= KEY)
+
+def search_video_channel(word,type_search='video'):
+    if type_search == 'video':
+        request = youtube.search().list(part='snippet',type='video',maxResults=1,q=word).execute()
+        id_video = request['items'][0]['id']['videoId']
+        return id_video
+
+    elif type_search == 'channel' : 
+        request = youtube.search().list(part='snippet',type='channel',maxResults=1,q=word).execute()
+        id_channel = request['items'][0]['id']['channelId']
+        return id_channel
+    
+    else :
+        print("ERREUR : type inexistant\n")
 
 
 
 
 
+def app_dash(input,type):
+    if type =='video':
+        insul_perc = percent_insultes(input)[0]
+        video_name = get_video_title(input)
+        data = pd.DataFrame({  
+            "video":[input, input],
+            'stats':[100-insul_perc,insul_perc]
+        })
+    elif type =='channel':
+        video_id, perc = most_insulted_video(input, 10)
+        video_name = get_video_title(video_id)
+        data = pd.DataFrame({  
+            "video":[input, input],
+            'stats':[100-perc,perc]
+        })
 
-def dash_channel(video_name):
-    data = pd.DataFrame({  
-        "video":[video_name, video_name],
-        'stats':[93.6,6.4]
-    })
     options = [{'label':'channel', 'value':'channel'},{'label':'video','value':'video'}]
     app = dash.Dash(__name__)
     colors = {
@@ -32,14 +63,14 @@ def dash_channel(video_name):
 
     app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
         html.H1(
-            children='Hello Dash',
+            children='Youtube Cleaner',
             style={
                 'textAlign': 'center',
                 'color': colors['text']
             }
         ),
 
-        html.Label('URL ou recherche',style = {
+        html.Label('URL ou Recherche',style = {
                 'textAlign': 'center',
                 'color': colors['text']
             }),
@@ -61,7 +92,7 @@ def dash_channel(video_name):
                 clearable = None
             ),
 
-        html.Div(children='Visualisation toxicité commentaires', style={
+        html.Div(children=f'Vidéo : {video_name}', style={
             'textAlign': 'center',
             'color': colors['text']
         }),
@@ -82,17 +113,19 @@ def dash_channel(video_name):
     def update_figure(n_clicks, text, dropdown):
         
         if dropdown == 'video':
-            data_f = pd.DataFrame({
+            perc = percent_insultes(input)[0]
+            data = pd.DataFrame({
                 'video':[text,text],
-                'stats':[50,50]
+                'stats':[100-perc,perc]
             })
-            fig = px.pie(data_f, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
+            fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
         elif dropdown =='channel':
-            data_f = pd.DataFrame({
-                'video':[text,text],
-                'stats':[67,33]
+            video_id, perc = most_insulted_video(input, 10)
+            data = pd.DataFrame({  
+                "video":[input, input],
+                'stats':[100-perc,perc]
             })
-            fig = px.pie(data_f, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
+            fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
         fig.update_layout(
             plot_bgcolor=colors['background'],
             paper_bgcolor=colors['background'],
@@ -102,4 +135,4 @@ def dash_channel(video_name):
     
     app.run_server(debug=True)
 
-dash_channel("TRY2eQju5nc")
+app_dash("zooHc3m9mWE",'video')

@@ -290,11 +290,19 @@ def dico_en_3(id1, id2, id3, nb):
 # print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
 
 
+<<<<<<< HEAD
 def search_video_channel(word,type_search='video'):
     """renvoie la vidéo ou la chaîne youtube la plus adaptée à la recherche spécifiée dans word
     type_search = 'video' : recherche sur les vidéos
     type_search = 'channel' : recherche sur les chaînes"""
     youtube = build('youtube',"v3",developerKey= KEY)
+=======
+def search_video_channel(word, type_search='video'):
+    """renvoie la vidéo ou la chaîne youtube la plus adaptée à la recherche spécifiée dans word
+    type_search = 'video' : recherche sur les vidéos
+    type_search = 'channel' : recherche sur les chaînes"""
+    youtube = build('youtube', "v3", developerKey=KEY)
+>>>>>>> 45ff224a44f925620d1888c3253ee98b8b7f1410
     if type_search == 'video':
         request = youtube.search().list(part='snippet', type='video',
                                         maxResults=1, q=word).execute()

@@ -69,7 +69,7 @@ def opti_hyperpara():
     ti = time.time()
     precision = 0
     max_feat_opti = 0
-    for n in range(3000, 5001, 1000):
+    for n in range(100, 101, 1000):
         vectorizer = CountVectorizer(
             max_features=n, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
         X = vectorizer.fit_transform(documents).toarray()
