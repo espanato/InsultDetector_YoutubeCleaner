@@ -11,6 +11,7 @@ Déterminer quels sujets développent le plus la haine sur youtube.
 
 
 ETAPES:
+      
       1) Récupérer les commentaires youtube/comprendre le fonctionnement de l’API
 Récupérer les commentaires via l’API
 Fonction qui stocke les commentaires dans une liste
@@ -18,20 +19,16 @@ Fonction qui stocke les commentaires dans une liste
       2) Déterminer la polarité d’un message 
 Trouver le module à utiliser
 Fonction qui analyse la polarité du commentaire
+En utilisant une liste d'insultes en français
+En utilisant une machine learning en anglais uniquement
 Utiliser le pourcentage de dislikes sur un commentaire pour déterminer s’il peut être insultant et s’il demande une vérification plus poussée s’il n’a pas été détecté auparavant.
 
- 
-      3) Déterminer à qui s’adresse le message 
-
-Fonction qui détecte les messages envers le youtuber (“tu”,”t’”,pas de pronom..)
-
-
-      4) Faire un graphique camembert sur Dash
+      3) Faire un graphique camembert sur Dash
 nombre de commentaires insultants/ nombre de commentaires non insultants
 
 Déjà fait (Charly)
 
-      5) comparer deux chaînes youtubes
+      4) comparer deux chaînes youtubes
 
 
 
