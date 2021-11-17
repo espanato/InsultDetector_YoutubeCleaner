@@ -4,6 +4,12 @@ from tkinter.font import ITALIC
 import webbrowser
 import pyperclip as pc
 from fonctions import reconnait_lien
+import os
+
+print(os.getcwd())
+os.chdir("GUI")
+#os.system("pause")
+
 
 bg_color = '#262525'  # Couleur du background, gris foncé
 error_text = "Veuillez rentrer une URL ou une ID valide"
@@ -24,7 +30,7 @@ def affiche_error_text(label, text):
 window = Tk()
 window.title("YoutubeCleaner Pro")
 window.geometry("1080x720")
-window.iconbitmap("GUI/images/logo.ico")
+window.iconbitmap("images/logo.ico")
 window.config(background=bg_color)
 window.minsize(1080, 720)
 
@@ -33,7 +39,7 @@ frame = Frame(window, bg=bg_color)
 frame_entree_pc = Frame(frame, bg=bg_color)  # entrée et bouton "coller"
 
 ####### IMAGE ########
-logo = PhotoImage(file="GUI/images/logo.png")
+logo = PhotoImage(file="images/logo.png")
 panel = Label(frame, image=logo)
 panel.pack(side=TOP)
 
@@ -48,7 +54,7 @@ entree = Entry(frame_entree_pc, textvariable=StringVar(
 entree.pack(side=TOP, fill=X)
 
 ####### BOUTON "COLLER" #######
-logo_pc = PhotoImage(file="GUI/images/pc_logo.png")
+logo_pc = PhotoImage(file="images/pc_logo.png")
 logo_pc = logo_pc.subsample(x=2, y=2)
 bouton_pc = Button(frame_entree_pc, image=logo_pc,
                    command=lambda: remplace_entree(entree, pc.paste()))
@@ -73,7 +79,7 @@ frame.pack(expand=YES)
 
 ####### BOUTON GITLAB #######
 lien_gitlab = "https://gitlab-ovh-02.cloud.centralesupelec.fr/edouard.roby/insultedetector_s2_YouTubeCleaner"
-image_gitlab = PhotoImage(file="GUI/images/gitlab-logo.png")
+image_gitlab = PhotoImage(file="images/gitlab-logo.png")
 bouton_gitlab = Button(window, text="Pouii",
                        image=image_gitlab, command=lambda: webbrowser.open_new(lien_gitlab))
 bouton_gitlab.place(rely=1.0, relx=1.0, x=0, y=0, anchor=SE)
