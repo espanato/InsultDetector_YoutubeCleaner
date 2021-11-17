@@ -1,15 +1,17 @@
-from logging import error
-from tkinter import *
-from tkinter.font import ITALIC
-import webbrowser
-import pyperclip as pc
-from fonctions import reconnait_lien
 import os
 
 fin = os.getcwd().split("\\")[-1]
 if fin != "GUI":
     os.chdir("GUI")
 #os.system("pause")
+
+from logging import error
+from tkinter import *
+from tkinter.font import ITALIC
+import webbrowser
+import pyperclip as pc
+from fonctions import reconnait_lien
+
 
 
 bg_color = '#262525'  # Couleur du background, gris foncé
