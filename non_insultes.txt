@@ -48,3 +48,7 @@ com
 bac
 crier
 fouine
+zon
+ordre
+(on
+pique
