@@ -5,7 +5,7 @@ import requests
 import csv
 from search_comments import get_video_statistics
 
-# chercher les commentaires d'une video avec toutes les infos de yt
+# Permet de récupérer les vidéos d'une chaîne youtube
 KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 
 

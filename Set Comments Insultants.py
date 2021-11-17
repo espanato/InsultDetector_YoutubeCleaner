@@ -1,15 +1,11 @@
 import keyboard
 import codecs
 import time
-from search_comments import dico_en_3
+from search_comments import collect_comments_and_replies
 
-dic1, dic2, dic3 = dico_en_3('TRY2eQju5nc', '5r-ZsKH3uNE', '6janW0h3cZY', 3)
+dic1= collect_comments_and_replies('QbrNKOQMahk', 100)
 print('Prêt à commencer !')
-<<<<<<< HEAD
-for k, v in dic2.items():
-=======
-for k, v in dic3.items():
->>>>>>> be381b0f347dc60f1edc93e9dd77f458860e70fb
+for k, v in dic1.items():
     i = 1
     c = 0
     print(v)

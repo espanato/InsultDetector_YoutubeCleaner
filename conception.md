@@ -31,10 +31,11 @@ nombre de commentaires insultants/ nombre de commentaires non insultants
 
 Déjà fait (Charly)
 
-      5) faire une fonction qui choisit un sujet (par exemple politique, jeu vidéo) et qui détermine la quantité de like, dislike puis comparer pour différents sujets.
+      5) comparer deux chaînes youtubes
 
 
 
-MVP : Pouvoir récupérer les commentaires d’une vidéo et savoir s'il s’agit d’une insulte envers le youtuber  
+MVP : Pouvoir récupérer les commentaires d’une vidéo et déterminer les insultes (notamment celles envers les youtubeurs), utiliser
+ces données pour établir un ratio insultant/non insultant et comparer 2 chaînes youtube
 
 API : https://developers.google.com/youtube/v3/docs/comments
