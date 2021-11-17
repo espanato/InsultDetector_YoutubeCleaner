@@ -6,8 +6,9 @@ import pyperclip as pc
 from fonctions import reconnait_lien
 import os
 
-print(os.getcwd())
-os.chdir("GUI")
+fin = os.getcwd().split("\\")[-1]
+if fin != "GUI":
+    os.chdir("GUI")
 #os.system("pause")
 
 
