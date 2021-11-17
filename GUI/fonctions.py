@@ -1,3 +1,6 @@
+def contient_espace(text):
+    return " " in text
+
 def reconnait_lien(text):
     """Fonction qui reconnait si text est un lien(ou une id) d'une vidéo ou d'une chaîne.
     Renvoie un tuple (id, type)"""

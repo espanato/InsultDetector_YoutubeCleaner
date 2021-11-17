@@ -289,4 +289,22 @@ def dico_en_3(id1, id2, id3, nb):
 # print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
 
 
+
+def search_video_channel(word,type_search='video'):
+    
+    youtube = build('youtube',"v3",developerKey= KEY)
+    if type_search == 'video':
+        request = youtube.search().list(part='snippet',type='video',maxResults=1,q=word).execute()
+        id_video = request['items'][0]['id']['videoId']
+        return id_video
+
+    elif type_search == 'channel' : 
+        request = youtube.search().list(part='snippet',type='channel',maxResults=1,q=word).execute()
+        id_channel = request['items'][0]['id']['channelId']
+        return id_channel
+    
+    else :
+        print("ERREUR : type inexistant\n")
+
+
 # calculer la proportion de gens qui insultent parmi les dislikes
