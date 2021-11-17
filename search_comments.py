@@ -278,7 +278,8 @@ def collect_comments_and_replies(video_id, nb):
 
     return commentaires_dico
 
-# print(collect_comments_and_replies('vBFiBT2Z0EM', 100))
+
+#print(collect_comments_and_replies('vBFiBT2Z0EM', 5))
 
 
 def dico_en_3(id1, id2, id3, nb):
