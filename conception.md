@@ -31,7 +31,7 @@ nombre de commentaires insultants/ nombre de commentaires non insultants
 
 Déjà fait (Charly)
 
-      5) comparer deux cha^ines youtubes
+      5) comparer deux chaînes youtubes
 
 
 
