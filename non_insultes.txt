@@ -46,3 +46,7 @@ unique
 nourriture
 com
 bac
+zon
+ordre
+(on
+pique
