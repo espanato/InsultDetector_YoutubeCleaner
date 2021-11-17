@@ -7,23 +7,6 @@ from dash.dependencies import Input, Output, State
 from most_insulted_video import most_insulted_video
 
 
-KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
-youtube = build('youtube',"v3",developerKey= KEY)
-
-def search_video_channel(word,type_search='video'):
-    if type_search == 'video':
-        request = youtube.search().list(part='snippet',type='video',maxResults=1,q=word).execute()
-        id_video = request['items'][0]['id']['videoId']
-        return id_video
-
-    elif type_search == 'channel' : 
-        request = youtube.search().list(part='snippet',type='channel',maxResults=1,q=word).execute()
-        id_channel = request['items'][0]['id']['channelId']
-        return id_channel
-    
-    else :
-        print("ERREUR : type inexistant\n")
-
 
 
 

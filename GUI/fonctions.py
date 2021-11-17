@@ -1,3 +1,6 @@
+import os
+print(os.getcwd())
+
 from search_comments import *
 
 def contient_espace(text):
