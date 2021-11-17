@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.font import ITALIC
 import webbrowser
 import pyperclip as pc
 from fonctions import reconnait_lien
@@ -18,7 +19,7 @@ window.title("YoutubeCleaner Pro")
 window.geometry("1080x720")
 window.iconbitmap("GUI/logo.ico")
 window.config(background=bg_color)
-
+window.minsize(1080, 720)
 
 frame = Frame(window, bg=bg_color)
 logo = PhotoImage(file="GUI/logo.png")
@@ -31,7 +32,7 @@ label_title = Label(
 label_title.pack()
 
 entree = Entry(frame_entree_pc, textvariable=StringVar(
-    frame_entree_pc, value=pc.paste()), font=('Arial', 18))
+    frame_entree_pc, value=pc.paste()), font=('Arial', 18, ITALIC), fg='#1F676E')
 entree.pack(side=TOP, fill=X)
 
 logo_pc = PhotoImage(file="GUI/pc_logo.png")
