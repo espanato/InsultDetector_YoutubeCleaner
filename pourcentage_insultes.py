@@ -28,4 +28,4 @@ def percent_insultes(video_id):
     return n/len(l_comm) * 100, l_insultes
 
 
-print(percent_insultes("vBFiBT2Z0EM"))
+# print(percent_insultes("vBFiBT2Z0EM"))
