@@ -231,9 +231,9 @@ def get_all_replies(parent_id):
     commentaires_dico = get_video_replies_dico(parent_id, 100)
     while 'nextPageToken' in dico:
         page_token = dico['nextPageToken']
-        new_dico = get_video_replies_dico_page_token(video_id, page_token)
+        new_dico = get_video_replies_dico_page_token(parent_id, page_token)
         commentaires_dico.update(new_dico)
-        dico = get_video_replies_page_token(video_id, page_token)
+        dico = get_video_replies_page_token(parent_id, page_token)
 
     return commentaires_dico
 
@@ -287,6 +287,26 @@ def dico_en_3(id1, id2, id3, nb):
 
 
 # print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
+
+
+
+def search_video_channel(word,type_search='video'):
+    """renvoie la vidéo ou la chaîne youtube la plus adaptée à la recherche spécifiée dans word
+    type_search = 'video' : recherche sur les vidéos
+    type_search = 'channel' : recherche sur les chaînes"""
+    youtube = build('youtube',"v3",developerKey= KEY)
+    if type_search == 'video':
+        request = youtube.search().list(part='snippet',type='video',maxResults=1,q=word).execute()
+        id_video = request['items'][0]['id']['videoId']
+        return id_video
+
+    elif type_search == 'channel' : 
+        request = youtube.search().list(part='snippet',type='channel',maxResults=1,q=word).execute()
+        id_channel = request['items'][0]['id']['channelId']
+        return id_channel
+    
+    else :
+        print("ERREUR : type inexistant\n")
 
 
 # calculer la proportion de gens qui insultent parmi les dislikes

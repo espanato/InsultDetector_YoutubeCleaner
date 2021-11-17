@@ -1,4 +1,1 @@
-from carbonai import PowerMeter
-
-
-power_meter = PowerMeter()
+print([i for i in range(100)])
