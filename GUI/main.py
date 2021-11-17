@@ -17,12 +17,12 @@ window = Tk()
 
 window.title("YoutubeCleaner Pro")
 window.geometry("1080x720")
-window.iconbitmap("GUI/logo.ico")
+window.iconbitmap("GUI/images/logo.ico")
 window.config(background=bg_color)
 window.minsize(1080, 720)
 
 frame = Frame(window, bg=bg_color)
-logo = PhotoImage(file="GUI/logo.png")
+logo = PhotoImage(file="GUI/images/logo.png")
 panel = Label(frame, image=logo)
 panel.pack(side=TOP)
 frame_entree_pc = Frame(frame, bg=bg_color)
@@ -35,7 +35,7 @@ entree = Entry(frame_entree_pc, textvariable=StringVar(
     frame_entree_pc, value=pc.paste()), font=('Arial', 18, ITALIC), fg='#1F676E')
 entree.pack(side=TOP, fill=X)
 
-logo_pc = PhotoImage(file="GUI/pc_logo.png")
+logo_pc = PhotoImage(file="GUI/images/pc_logo.png")
 logo_pc = logo_pc.subsample(x=2, y=2)
 bouton_pc = Button(frame_entree_pc, image=logo_pc,
                    command=lambda: remplace_entree(entree, pc.paste()))
@@ -45,7 +45,7 @@ bouton_pc.pack(side=LEFT)
 frame_entree_pc.pack(fill=X)
 
 
-photo = PhotoImage(file="GUI/logo.png")
+photo = PhotoImage(file="GUI/images/logo.png")
 bouton = Button(frame, text="GO !", font=("Courrier", 20),
                 bg='red', fg='white',  height=1, width=10, command=lambda: reconnait_lien(entree.get()))
 bouton.pack(expand=YES)
@@ -57,7 +57,7 @@ frame.pack(expand=YES)
 # GITLAB_BUTTON
 
 lien_gitlab = "https://gitlab-ovh-02.cloud.centralesupelec.fr/edouard.roby/insultedetector_s2_YouTubeCleaner"
-image_gitlab = PhotoImage(file="GUI/gitlab-logo.png")
+image_gitlab = PhotoImage(file="GUI/images/gitlab-logo.png")
 
 
 def ouvrir_lien_gitlab():
