@@ -16,4 +16,8 @@ def percent_insultes(video_id):
     return n/len(dico_comments) * 100, l_insultes
 
 
+<<<<<<< HEAD
 # print(percent_insultes("DHiTuMboqVI"))
+=======
+# print(percent_insultes("vBFiBT2Z0EM"))
+>>>>>>> 7c42945c4952eb238be80ae6929405cd690ebc92
