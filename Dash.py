@@ -5,8 +5,10 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output, State
 from most_insulted_video import most_insulted_video
+from googleapiclient.discovery import build
+from pourcentage_insultes import percent_insultes
+from channel_videos import get_video_title
 
-<<<<<<< HEAD
 
 KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 youtube = build('youtube',"v3",developerKey= KEY)
@@ -29,16 +31,22 @@ def search_video_channel(word,type_search='video'):
 
 
 
-def dash_channel(video_name):
-=======
-def dash_channel(video_id):
-    video_name = get_video_name(video_id)
->>>>>>> 6a9fe7b (Dash)
-    data = pd.DataFrame({  
-        "video":[video_name, video_name],
-        'stats':[93.6,6.4]
-    })
-    options = [{'label':'chaîne', 'value':'chaîne'},{'label':'video','value':'video'}]
+def app_dash(input,type):
+    if type =='video':
+        insul_perc = percent_insultes(id)
+        data = pd.DataFrame({  
+            "video":[input, input],
+            'stats':[100-insul_perc,insul_perc]
+        })
+    elif type =='channel':
+        video_id, perc = most_insulted_video(input, 10)
+        video_name = 
+        data = pd.DataFrame({  
+            "video":[input, input],
+            'stats':[100-perc,perc]
+        })
+
+    options = [{'label':'channel', 'value':'channel'},{'label':'video','value':'video'}]
     app = dash.Dash(__name__)
     colors = {
         'background': '#111111',
@@ -54,7 +62,7 @@ def dash_channel(video_id):
 
     app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
         html.H1(
-            children='YoutubeCleaner',
+            children='Hello Dash',
             style={
                 'textAlign': 'center',
                 'color': colors['text']
@@ -67,7 +75,7 @@ def dash_channel(video_id):
             }),
             dcc.Input(id = 'text',value='', type='text'),
         html.Button(id='button', n_clicks=0, children='Go !'),
-        dcc.RadioItems(id = 'radioitems', options = [{'label':'URL', 'value':'URL'},{'label':'Recherche','value':'Recherche'}], value = 'URL',style = {
+        dcc.RadioItems(id = 'radioitems', options = [{'label':'URL', 'value':'URL'},{'label':'recherche','value':'recherche'}], value = 'URL',style = {
                 'color': colors['text']
             }),
 
@@ -109,7 +117,7 @@ def dash_channel(video_id):
                 'stats':[50,50]
             })
             fig = px.pie(data_f, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
-        elif dropdown =='chaîne':
+        elif dropdown =='channel':
             data_f = pd.DataFrame({
                 'video':[text,text],
                 'stats':[67,33]
@@ -124,4 +132,4 @@ def dash_channel(video_id):
     
     app.run_server(debug=True)
 
-dash_channel("TRY2eQju5nc")
+app_dash("TRY2eQju5nc")
