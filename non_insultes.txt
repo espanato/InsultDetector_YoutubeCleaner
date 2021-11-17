@@ -43,3 +43,5 @@ unique
 nourriture
 com
 bac
+crier
+fouine
