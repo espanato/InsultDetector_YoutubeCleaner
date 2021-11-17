@@ -15,4 +15,4 @@ def reconnait_lien(text):
             else:
                 reconnait_lien(text.split('youtube.com/channel/')[1][0:24])
         except:
-            raise TypeError
+            return(False)
