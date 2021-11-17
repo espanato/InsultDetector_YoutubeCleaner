@@ -18,4 +18,4 @@ def most_insulted_video(channel_id, nb=3):
     return most_insulted_video_Id, biggest_percent
 
 
-# print(most_insulted_video("UCNqN7k7qUKVhYQb5DLEDdaA", 3))
+print(most_insulted_video("UCNqN7k7qUKVhYQb5DLEDdaA", 3))
