@@ -1,3 +1,4 @@
+from logging import error
 from tkinter import *
 from tkinter.font import ITALIC
 import webbrowser
@@ -5,12 +6,18 @@ import pyperclip as pc
 from fonctions import reconnait_lien
 
 bg_color = '#262525'  # Couleur du background, gris foncé
+error_text = "Veuillez rentrer une URL ou une ID valide"
 
 
 def remplace_entree(entree, text):
     """Cette fonction remplace le contenu de entrée par text"""
     entree.delete(0, END)
     entree.insert(0, text)
+
+
+def affiche_error_text(label, text):
+    if reconnait_lien(text) == False:
+        label.configure(text=error_text)
 
 
 ####### CREATION FENÊTRE PRINCIPALE ##########
@@ -41,19 +48,23 @@ entree = Entry(frame_entree_pc, textvariable=StringVar(
 entree.pack(side=TOP, fill=X)
 
 ####### BOUTON "COLLER" #######
-
 logo_pc = PhotoImage(file="GUI/images/pc_logo.png")
 logo_pc = logo_pc.subsample(x=2, y=2)
 bouton_pc = Button(frame_entree_pc, image=logo_pc,
                    command=lambda: remplace_entree(entree, pc.paste()))
 bouton_pc.pack(side=LEFT)
 
+####### TEXTE ERREUR #######
+error_text_label = Label(frame_entree_pc, text="", font=(
+    "Courrier", 15), bg=bg_color, fg='red')
+error_text_label.pack()
+
 
 frame_entree_pc.pack(fill=X)
 
 ####### BOUTON DE DEMARRAGE #######
 bouton = Button(frame, text="GO !", font=("Courrier", 20),
-                bg='red', fg='white',  height=1, width=10, command=lambda: reconnait_lien(entree.get()))
+                bg='red', fg='white',  height=1, width=10, command=lambda: affiche_error_text(error_text_label, entree.get()))
 bouton.pack(expand=YES)
 
 
@@ -61,7 +72,6 @@ frame.pack(expand=YES)
 
 
 ####### BOUTON GITLAB #######
-
 lien_gitlab = "https://gitlab-ovh-02.cloud.centralesupelec.fr/edouard.roby/insultedetector_s2_YouTubeCleaner"
 image_gitlab = PhotoImage(file="GUI/images/gitlab-logo.png")
 bouton_gitlab = Button(window, text="Pouii",
