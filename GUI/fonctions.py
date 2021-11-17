@@ -1,17 +1,42 @@
-from search_comments import *
+from googleapiclient.discovery import build
+KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
+
 
 def contient_espace(text):
     return " " in text
+
+
+def search_video_channel(word, type_search='video'):
+    """renvoie la vidéo ou la chaîne youtube la plus adaptée à la recherche spécifiée dans word
+    type_search = 'video' : recherche sur les vidéos
+    type_search = 'channel' : recherche sur les chaînes"""
+    youtube = build('youtube', "v3", developerKey=KEY)
+    if type_search == 'video':
+        request = youtube.search().list(part='snippet', type='video',
+                                        maxResults=1, q=word).execute()
+        if request['items'] != []:
+            id_video = request['items'][0]['id']['videoId']
+            return id_video
+        else:
+            return False
+
+    elif type_search == 'channel':
+        request = youtube.search().list(part='snippet', type='channel',
+                                        maxResults=1, q=word).execute()
+        id_channel = request['items'][0]['id']['channelId']
+        return id_channel
+
+    else:
+        return False
+
 
 def reconnait_lien(text):
     """Fonction qui reconnait si text est un lien(ou une id) d'une vidéo ou d'une chaîne.
     Renvoie un tuple (id, type)"""
     longueur = len(text)
     if (longueur == 11) and not contient_espace(text):  # id d'une video fait 11 caractères
-        print('video')
         return(text, 'video')
     elif (longueur == 24) and not contient_espace(text):  # id d'une chaîne fait 24 caractères
-        print('chaine')
         return(text, 'channel')
     else:  # cas où l'utilisateur a rentré le lien complet
         try:  # on regarde si c'est au moins un lien valide
@@ -20,4 +45,4 @@ def reconnait_lien(text):
             else:
                 reconnait_lien(text.split('youtube.com/channel/')[1][0:24])
         except:
-            return (search_video_channel(text,type_search='video'), 'video')
+            return (search_video_channel(text, type_search='video'))

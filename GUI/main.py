@@ -1,21 +1,19 @@
+from fonctions import reconnait_lien
+import pyperclip as pc
+import webbrowser
+from tkinter.font import ITALIC
+from tkinter import *
+from logging import error
 import os
 
 fin = os.getcwd().split("\\")[-1]
 if fin != "GUI":
     os.chdir("GUI")
-#os.system("pause")
-
-from logging import error
-from tkinter import *
-from tkinter.font import ITALIC
-import webbrowser
-import pyperclip as pc
-from fonctions import reconnait_lien
-
+# os.system("pause")
 
 
 bg_color = '#262525'  # Couleur du background, gris foncé
-error_text = "Veuillez rentrer une URL ou une ID valide"
+error_text = "Veuillez rentrer une URL, une ID ou un nom de chaîne valide"
 
 
 def remplace_entree(entree, text):
