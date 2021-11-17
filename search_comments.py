@@ -231,9 +231,9 @@ def get_all_replies(parent_id):
     commentaires_dico = get_video_replies_dico(parent_id, 100)
     while 'nextPageToken' in dico:
         page_token = dico['nextPageToken']
-        new_dico = get_video_replies_dico_page_token(video_id, page_token)
+        new_dico = get_video_replies_dico_page_token(parent_id, page_token)
         commentaires_dico.update(new_dico)
-        dico = get_video_replies_page_token(video_id, page_token)
+        dico = get_video_replies_page_token(parent_id, page_token)
 
     return commentaires_dico
 
