@@ -7,7 +7,8 @@ from googleapiclient.discovery import build
 from requests.api import get
 
 # chercher les commentaires d'une video avec toutes les infos de yt
-KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
+#KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
+KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
 
 
 def get_video_comments(video_id, nb=3):
@@ -20,7 +21,7 @@ def get_video_comments(video_id, nb=3):
     return(dico)
 
 
-# print((get_video_comments('6janW0h3cZY', 100))
+#print((get_video_comments('DHiTuMboqVI', 100)))
 
 
 def get_video_replies(parent_id, nb=3):
@@ -33,7 +34,7 @@ def get_video_replies(parent_id, nb=3):
     return(dico)
 
 
-# print(get_video_replies('UgyXSKR2TSiAgzebL3R4AaABAg'))
+# print(get_video_replies('UgyCUVzlhwi7wgXygvF4AaABAg'))
 
 
 def get_video_comments_user_name(video_id, nb=3):
@@ -228,7 +229,7 @@ le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les texte
 
 def get_all_replies(parent_id):
     dico = get_video_replies(parent_id, 100)
-    commentaires_dico = get_video_replies_dico(parent_id, 100)
+    commentaires_dico = get_video_replies(parent_id, 100)
     while 'nextPageToken' in dico:
         page_token = dico['nextPageToken']
         new_dico = get_video_replies_dico_page_token(parent_id, page_token)
@@ -262,7 +263,7 @@ def get_all(video_id):
     return commentaires_dico
 
 
-# print(get_all('DHiTuMboqVI'))
+print(get_all('bEnp8Qdi2Oc'))
 
 
 def collect_comments_and_replies(video_id, nb):
@@ -279,7 +280,7 @@ def collect_comments_and_replies(video_id, nb):
     return commentaires_dico
 
 
-#print(collect_comments_and_replies('vBFiBT2Z0EM', 5))
+# print(collect_comments_and_replies('vBFiBT2Z0EM', 5))
 
 
 def dico_en_3(id1, id2, id3, nb):
@@ -289,21 +290,22 @@ def dico_en_3(id1, id2, id3, nb):
 # print(dico_en_3('vBFiBT2Z0EM', 'vBFiBT2Z0EM', 'vBFiBT2Z0EM', 5))
 
 
+def search_video_channel(word, type_search='video'):
 
-def search_video_channel(word,type_search='video'):
-    
-    youtube = build('youtube',"v3",developerKey= KEY)
+    youtube = build('youtube', "v3", developerKey=KEY)
     if type_search == 'video':
-        request = youtube.search().list(part='snippet',type='video',maxResults=1,q=word).execute()
+        request = youtube.search().list(part='snippet', type='video',
+                                        maxResults=1, q=word).execute()
         id_video = request['items'][0]['id']['videoId']
         return id_video
 
-    elif type_search == 'channel' : 
-        request = youtube.search().list(part='snippet',type='channel',maxResults=1,q=word).execute()
+    elif type_search == 'channel':
+        request = youtube.search().list(part='snippet', type='channel',
+                                        maxResults=1, q=word).execute()
         id_channel = request['items'][0]['id']['channelId']
         return id_channel
-    
-    else :
+
+    else:
         print("ERREUR : type inexistant\n")
 
 
