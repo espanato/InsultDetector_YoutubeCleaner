@@ -44,6 +44,5 @@ tic
 fon
 unique
 nourriture
-(on
-ordre
-pique
+com
+bac
