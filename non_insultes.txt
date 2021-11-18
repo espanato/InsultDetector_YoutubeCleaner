@@ -87,4 +87,9 @@ médaille
 bouffe
 pure
 more
-
+poulet
+brisé
+roche
+coche
+dite
+biz
