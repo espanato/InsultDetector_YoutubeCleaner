@@ -44,9 +44,9 @@ def reconnait_url(url):
     else:
         try:  # on regarde si c'est au moins un lien valide
             if 'watch' in url:  # condition nécessaire pour qu'un lien soit celui d'une vidéo
-                reconnait_url(url.split('youtube.com/watch?v=')[1][0:11])
+                return reconnait_url(url.split('youtube.com/watch?v=')[1][0:11])
             else:
-                reconnait_url(url.split('youtube.com/channel/')[1][0:24])
+                return reconnait_url(url.split('youtube.com/channel/')[1][0:24])
         except:
             return (False)
 
