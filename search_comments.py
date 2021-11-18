@@ -8,7 +8,8 @@ from requests.api import get
 
 # chercher les commentaires d'une video avec toutes les infos de yt
 #KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
-KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
+#KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
+KEY = 'AIzaSyARMcIOvEGxmAgdUQYCpSd3J669u2rpghA'
 
 
 def get_video_comments(video_id, nb=3):
@@ -229,7 +230,7 @@ le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les texte
 
 def get_all_replies(parent_id):
     dico = get_video_replies(parent_id, 100)
-    commentaires_dico = get_video_replies(parent_id, 100)
+    commentaires_dico = get_video_replies_dico(parent_id, 100)
     while 'nextPageToken' in dico:
         page_token = dico['nextPageToken']
         new_dico = get_video_replies_dico_page_token(parent_id, page_token)
@@ -291,9 +292,7 @@ def dico_en_3(id1, id2, id3, nb):
 
 
 def search_video_channel(word, type_search='video'):
-    """renvoie la vidéo ou la chaîne youtube la plus adaptée à la recherche spécifiée dans word
-    type_search = 'video' : recherche sur les vidéos
-    type_search = 'channel' : recherche sur les chaînes"""
+
     youtube = build('youtube', "v3", developerKey=KEY)
     if type_search == 'video':
         request = youtube.search().list(part='snippet', type='video',

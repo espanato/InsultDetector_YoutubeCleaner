@@ -11,25 +11,26 @@ from channel_videos import get_video_title
 from GUI.fonctions import reconnait_url
 
 # KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
-KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
-youtube = build('youtube',"v3",developerKey= KEY)
+# KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
+KEY = 'AIzaSyARMcIOvEGxmAgdUQYCpSd3J669u2rpghA'
+youtube = build('youtube', "v3", developerKey=KEY)
 
-def search_video_channel(word,type_search='video'):
+
+def search_video_channel(word, type_search='video'):
     if type_search == 'video':
-        request = youtube.search().list(part='snippet',type='video',maxResults=1,q=word).execute()
+        request = youtube.search().list(part='snippet', type='video',
+                                        maxResults=1, q=word).execute()
         id_video = request['items'][0]['id']['videoId']
         return id_video
 
-    elif type_search == 'channel' : 
-        request = youtube.search().list(part='snippet',type='channel',maxResults=1,q=word).execute()
+    elif type_search == 'channel':
+        request = youtube.search().list(part='snippet', type='channel',
+                                        maxResults=1, q=word).execute()
         id_channel = request['items'][0]['id']['channelId']
         return id_channel
-    
-    else :
+
+    else:
         print("ERREUR : type inexistant\n")
-
-
-
 
 
 def app_dash(input,type):
@@ -40,16 +41,16 @@ def app_dash(input,type):
     if type =='video':
         insul_perc = percent_insultes(input)[0]
         video_name = get_video_title(input)
-        data = pd.DataFrame({  
-            "video":[input, input],
-            'stats':[100-insul_perc,insul_perc]
+        data = pd.DataFrame({
+            "video": [input, input],
+            'stats': [100-insul_perc, insul_perc]
         })
-    elif type =='channel':
+    elif type == 'channel':
         video_id, perc = most_insulted_video(input, 10)
         video_name = get_video_title(video_id)
-        data = pd.DataFrame({  
-            "video":[input, input],
-            'stats':[100-perc,perc]
+        data = pd.DataFrame({
+            "video": [input, input],
+            'stats': [100-perc, perc]
         })
 
     app = dash.Dash(__name__)
@@ -57,7 +58,8 @@ def app_dash(input,type):
         'background': '#111111',
         'text': '#7FDBFF'
     }
-    fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
+    fig = px.pie(data, values='stats', names=[
+                 "% Commentaires neutres", "% Commentaires insultants"])
 
     fig.update_layout(
         plot_bgcolor=colors['background'],
@@ -74,11 +76,11 @@ def app_dash(input,type):
             }
         ),
 
-        html.Label('URL ou Recherche',style = {
-                'textAlign': 'center',
-                'color': colors['text']
-            }),
-            dcc.Input(id = 'text',value='', type='text'),
+        html.Label('URL ou Recherche', style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }),
+        dcc.Input(id='text', value='', type='text'),
         html.Button(id='button', n_clicks=0, children='Go !'),
         dcc.RadioItems(id = 'radioitems', options = [{'label':'URL', 'value':'URL'},{'label':'Chaîne','value':'channel'},{'label':'Video','value':'video'}], value = 'URL',style = {
                 'color': colors['text']
@@ -94,7 +96,7 @@ def app_dash(input,type):
             'textAlign': 'center',
             'color': colors['text']
         }),
-        
+
 
         dcc.Graph(
             id='graph',
@@ -116,8 +118,8 @@ def app_dash(input,type):
         if radio == 'video':
             perc = percent_insultes(input)[0]
             data = pd.DataFrame({
-                'video':[text,text],
-                'stats':[100-perc,perc]
+                'video': [text, text],
+                'stats': [100-perc, perc]
             })
             fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
         elif radio =='channel':
@@ -126,7 +128,8 @@ def app_dash(input,type):
                 "video":[video_id, video_id],
                 'stats':[100-perc,perc]
             })
-            fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
+            fig = px.pie(data, values='stats', names=[
+                         "% Commentaires neutres", "% Commentaires insultants"])
         fig.update_layout(
             plot_bgcolor=colors['background'],
             paper_bgcolor=colors['background'],
