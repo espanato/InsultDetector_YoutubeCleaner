@@ -4,11 +4,12 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 from search_comments import get_video_statistics
+from credentials import KEY
 
 # Permet de récupérer les vidéos d'une chaîne youtube
 #KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 # KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
-KEY = 'AIzaSyARMcIOvEGxmAgdUQYCpSd3J669u2rpghA'
+# KEY = 'AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0'
 
 
 # def get_video_viewCount(video_id, nb=1):

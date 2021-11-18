@@ -30,4 +30,5 @@ def percent_insultes(video_id):
     return n/len(dico_comments) * 100, l_insultes
 
 
-# print(percent_insultes("uebuextyG5g"))
+if __name__ == "__main__":
+    print(percent_insultes("niCMpOkMcWU"))

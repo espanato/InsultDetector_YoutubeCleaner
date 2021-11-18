@@ -1,6 +1,5 @@
 from googleapiclient.discovery import build
-# KEY = 'AIzaSyARMcIOvEGxmAgdUQYCpSd3J669u2rpghA'
-KEY = "AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0"
+from credentials import KEY
 
 
 def contient_espace(text):
