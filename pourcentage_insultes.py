@@ -11,7 +11,12 @@ def percent_insultes(video_id):
     l_insultes = []
     n = 0
     for comm in dico_comments:
-        lang = detect(comm)
+        print(dico_comments[comm])
+        try :
+            lang = detect(dico_comments[comm])
+        except :
+            lang = "error"
+        print(lang)
         if lang == 'fr' :
             nb = nb_insultes(dico_comments[comm])[0]
             if nb >= 1:
@@ -19,8 +24,12 @@ def percent_insultes(video_id):
                 l_insultes.append(nb_insultes(dico_comments[comm])[1])
         elif lang == 'en' :
             pass
-        else :
-            pass
+        else : #par défaut on dit que c'est en français
+            nb = nb_insultes(dico_comments[comm])[0]
+            if nb >= 1:
+                n = n + 1
+                l_insultes.append(nb_insultes(dico_comments[comm])[1])
+            
 
     return n/len(dico_comments) * 100, l_insultes
 
