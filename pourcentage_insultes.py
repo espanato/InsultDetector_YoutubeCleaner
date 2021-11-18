@@ -1,5 +1,7 @@
 from search_comments import *
 from contient_insulte import *
+from langdetect import detect
+
 
 
 def percent_insultes(video_id):
@@ -9,10 +11,17 @@ def percent_insultes(video_id):
     l_insultes = []
     n = 0
     for comm in dico_comments:
-        nb = nb_insultes(dico_comments[comm])[0]
-        if nb >= 1:
-            n = n + 1
-            l_insultes.append(nb_insultes(dico_comments[comm])[1])
+        lang = detect(comm)
+        if lang == 'fr' :
+            nb = nb_insultes(dico_comments[comm])[0]
+            if nb >= 1:
+                n = n + 1
+                l_insultes.append(nb_insultes(dico_comments[comm])[1])
+        elif lang == 'en' :
+            pass
+        else :
+            pass
+
     return n/len(dico_comments) * 100, l_insultes
 
 
