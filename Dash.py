@@ -112,7 +112,7 @@ def app_dash(input,type):
     )
     def update_figure(n_clicks, text, radio):
         if radio == 'url':
-            input,type = reconnait_url(text)
+            input,radio = reconnait_url(text)
         else : 
             input = search_video_channel(text,radio)
         if radio == 'video':
