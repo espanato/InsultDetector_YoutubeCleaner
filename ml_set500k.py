@@ -46,52 +46,52 @@ for sen in range(0, len(X)):
 
     documents.append(document)
 
-# vectorizer = CountVectorizer(
-#     max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('french'))
-# X = vectorizer.fit_transform(documents).toarray()
+vectorizer = CountVectorizer(
+    max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('french'))
+X = vectorizer.fit_transform(documents).toarray()
 
-# tfidfconverter = TfidfTransformer()
-# X = tfidfconverter.fit_transform(X).toarray()
+tfidfconverter = TfidfTransformer()
+X = tfidfconverter.fit_transform(X).toarray()
 
-# X_train, X_test, y_train, y_test = train_test_split(
-#     X, y, test_size=0.2, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=0)
 
-# classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
-# classifier.fit(X_train, y_train)
-# y_pred = classifier.predict(X_test)
-
-
-# print(confusion_matrix(y_test, y_pred))
-# print(classification_report(y_test, y_pred))
-# print(accuracy_score(y_test, y_pred))
-
-def opti_hyperpara():
-    ti = time.time()
-    precision = 0
-    max_feat_opti = 0
-    for n in range(100, 101, 1000):
-        vectorizer = CountVectorizer(
-            max_features=n, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
-        X = vectorizer.fit_transform(documents).toarray()
-
-        tfidfconverter = TfidfTransformer()
-        X = tfidfconverter.fit_transform(X).toarray()
-
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.2, random_state=0)
-
-        classifier = RandomForestClassifier(n_estimators=2000, random_state=0)
-        classifier.fit(X_train, y_train)
-        y_pred = classifier.predict(X_test)
-        mat = confusion_matrix(y_test, y_pred)
-        recall = mat[1][1] / (mat[1][0]+mat[1][1])
-        if recall > precision:
-            max_feat_opti = n
-            precision = recall
-        print(n, ' : ', recall)
-        tf = time.time()
-        print(tf-ti)
-    print(f'Précision de {precision} pour max_features = {max_feat_opti}')
+classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
 
 
-opti_hyperpara()
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+print(accuracy_score(y_test, y_pred))
+
+# def opti_hyperpara():
+#     ti = time.time()
+#     precision = 0
+#     max_feat_opti = 0
+#     for n in range(1, 101, 1000):
+#         vectorizer = CountVectorizer(
+#             max_features=n, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
+#         X = vectorizer.fit_transform(documents).toarray()
+
+#         tfidfconverter = TfidfTransformer()
+#         X = tfidfconverter.fit_transform(X).toarray()
+
+#         X_train, X_test, y_train, y_test = train_test_split(
+#             X, y, test_size=0.2, random_state=0)
+
+#         classifier = RandomForestClassifier(n_estimators=100, random_state=0)
+#         classifier.fit(X_train, y_train)
+#         y_pred = classifier.predict(X_test)
+#         mat = confusion_matrix(y_test, y_pred)
+#         recall = mat[1][1] / (mat[1][0]+mat[1][1])
+#         if recall > precision:
+#             max_feat_opti = n
+#             precision = recall
+#         print(n, ' : ', recall)
+#         tf = time.time()
+#         print(tf-ti)
+#     print(f'Précision de {precision} pour max_features = {max_feat_opti}')
+
+
+# opti_hyperpara()
