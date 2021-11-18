@@ -7,7 +7,8 @@ from search_comments import get_video_statistics
 
 # Permet de récupérer les vidéos d'une chaîne youtube
 #KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
-KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
+# KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
+KEY = 'AIzaSyARMcIOvEGxmAgdUQYCpSd3J669u2rpghA'
 
 
 # def get_video_viewCount(video_id, nb=1):

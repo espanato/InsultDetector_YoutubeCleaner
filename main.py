@@ -4,6 +4,7 @@ from logging import error
 from tkinter import *
 from tkinter.font import BOLD, ITALIC
 import webbrowser
+from Dash import app_dash
 import pyperclip as pc
 from fonctions import traitement_entree
 
@@ -13,6 +14,7 @@ if fin != "insultedetector_s2_YouTubeCleaner":
     os.chdir("insultedetector_s2_YouTubeCleaner")
 # os.system("pause")
 
+print(os.getcwd())
 
 bg_color = '#262525'  # Couleur du background, gris foncé
 error_text = "Veuillez rentrer une URL, une ID ou un nom de chaîne valide"
@@ -32,6 +34,7 @@ def remplace_entree(entree, text):
 def button_pushed(label, text, type_entree):
     """Fonction appelée lorsque le bouton principal est pressé"""
     result = traitement_entree(text, type_entree)
+    app_dash(result[0],result[1])
     if result == False:
         label.configure(text=error_text)
 
