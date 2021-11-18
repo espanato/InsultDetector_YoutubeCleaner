@@ -9,7 +9,8 @@ from requests.api import get
 # chercher les commentaires d'une video avec toutes les infos de yt
 #KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 #KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
-KEY = "AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0"
+#KEY = "AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0"
+KEY = "AIzaSyCuiVAnsl9DhNAwJTT5eW_T-ndiJG1PFiA"
 
 
 def get_video_comments(video_id, nb=3):
