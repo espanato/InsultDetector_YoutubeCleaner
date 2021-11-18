@@ -5,12 +5,13 @@ import requests
 import csv
 from googleapiclient.discovery import build
 from requests.api import get
+from credentials import KEY
 
 # chercher les commentaires d'une video avec toutes les infos de yt
 #KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 #KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
 #KEY = "AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0"
-KEY = "AIzaSyCuiVAnsl9DhNAwJTT5eW_T-ndiJG1PFiA"
+#KEY = "AIzaSyCuiVAnsl9DhNAwJTT5eW_T-ndiJG1PFiA"
 
 
 def get_video_comments(video_id, nb=3):
@@ -160,7 +161,7 @@ def get_video_statistics(video_id):
     likes = int(request['items'][0]['statistics']['likeCount'])
     dislikes = int(request['items'][0]['statistics']['dislikeCount'])
     comment_count = int(request['items'][0]['statistics']['commentCount'])
-    return views, likes, dislikes,comment_count
+    return views, likes, dislikes, comment_count
 
 
 # print(get_video_replies_words('UgyXSKR2TSiAgzebL3R4AaABAg',
