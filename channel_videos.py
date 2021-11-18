@@ -1,75 +1,149 @@
-import json
-import os
-from bs4 import BeautifulSoup
-import requests
-import csv
-from search_comments import get_video_statistics
-from credentials import KEY
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import plotly.express as px
+import pandas as pd
+from dash.dependencies import Input, Output, State
+from most_insulted_video import most_insulted_video
+from googleapiclient.discovery import build
+from pourcentage_insultes import percent_insultes
+from channel_videos import get_video_title
+from fonctions import reconnait_url
+import webbrowser
 
-# Permet de récupérer les vidéos d'une chaîne youtube
-#KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
+# KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 # KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
-# KEY = 'AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0'
+# KEY = 'AIzaSyARMcIOvEGxmAgdUQYCpSd3J669u2rpghA'
+KEY = "AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0"
+# KEY = "AIzaSyCuiVAnsl9DhNAwJTT5eW_T-ndiJG1PFiA"
+
+youtube = build('youtube', "v3", developerKey=KEY)
 
 
-# def get_video_viewCount(video_id, nb=1):
-#     """Renvoie le nombre de vus d'une vidéo"""
-#     requete = requests.get("https://youtube.googleapis.com/youtube/v3/videos?key="+KEY+"&part=statistics&id=" + video_id
-#                            + "&textFormat=plainText&order=viewCount&type=video"+"&maxResults="+str(nb))
-#     page = requete.content
-#     soup = BeautifulSoup(page, features='html.parser')
-#     dico = json.loads(str(soup))
-#     print(dico)
-#     stats = dico['items']['statistics']
-#     return({dico['items']['id']: [stats['viewCount', stats['likeCount'], stats['dislikeCount']]]})
+def search_video_channel(word, type_search='video'):
+    if type_search == 'video':
+        request = youtube.search().list(part='snippet', type='video',
+                                        maxResults=1, q=word).execute()
+        id_video = request['items'][0]['id']['videoId']
+        return id_video
+
+    elif type_search == 'channel':
+        request = youtube.search().list(part='snippet', type='channel',
+                                        maxResults=1, q=word).execute()
+        id_channel = request['items'][0]['id']['channelId']
+        return id_channel
+
+    else:
+        print(type_search)
+        print("ERREUR : type inexistant\n")
 
 
-def get_channel_videos(channel_id, nb=2):
-    """Renvoie un dico contenant les vidéos d'une chaîne"""
-    requete = requests.get(
-        "https://youtube.googleapis.com/youtube/v3/search?key="+KEY+"&part=snippet&channelId="+channel_id+"&textFormat=plainText&order=viewCount&type=video"+"&maxResults="+str(nb))
-    page = requete.content
-    soup = BeautifulSoup(page, features='html.parser')
-    dico = json.loads(str(soup))
-    return(dico)
+def app_dash(input,type):
+    if type == 'url':
+        input,type = reconnait_url(input)
+    else : 
+        input = search_video_channel(input,type)
+    if type =='video':
+        insul_perc = percent_insultes(input)[0]
+        video_name = get_video_title(input)
+        data = pd.DataFrame({
+            "video": [input, input],
+            'stats': [100-insul_perc, insul_perc]
+        })
+    elif type == 'channel':
+        video_id, perc = most_insulted_video(input, 10)
+        video_name = get_video_title(video_id)
+        data = pd.DataFrame({
+            "video": [input, input],
+            'stats': [100-perc, perc]
+        })
+
+    app = dash.Dash(__name__)
+    colors = {
+        'background': '#111111',
+        'text': '#7FDBFF'
+    }
+    fig = px.pie(data, values='stats', names=[
+                 "% Commentaires neutres", "% Commentaires insultants"])
+
+    fig.update_layout(
+        plot_bgcolor=colors['background'],
+        paper_bgcolor=colors['background'],
+        font_color=colors['text']
+    )
+
+    app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+        html.H1(
+            children='Youtube Cleaner',
+            style={
+                'textAlign': 'center',
+                'color': colors['text']
+            }
+        ),
+
+        html.Label(children = 'URL ou Recherche', style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }),
+        dcc.Input(id='text', value='', type='text'),
+        html.Button(id='button', n_clicks=0, children='Go !'),
+        dcc.RadioItems(id = 'radioitems', options = [{'label':'URL', 'value':'url'},{'label':'Chaîne','value':'channel'},{'label':'Video','value':'video'}], value = type,style = {
+                'color': colors['text']
+            }),
+
+        html.Br(),
+        html.Label('Video ou chaîne :',style = {
+                'textAlign': 'center',
+                'color': colors['text']
+            }),
+
+        html.Div(id = "affichage", children=f'Vidéo : {video_name}', style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }),
 
 
-def presentation_caracteristiques_chaine(channel_id, nb=3):
-    """Renvoie un dictionnaire de la forme {'video_id' :  {'title' : ..., 'viewCount' : ..., 'likeCount' : ..., 'dislikeCount' : ...}"""
-    dico_videos = get_channel_videos(channel_id, nb)
-    D = {}
-    for video in dico_videos['items']:
-        video_id = video['id']['videoId']
-        view, like, dislike = get_video_statistics(video_id)
-        D[video_id] = {'title': video['snippet']['title'],
-                       'viewCount': view,
-                       'likeCount': like,
-                       'dislikeCount': dislike}
-    return(D)
+        dcc.Graph(
+            id='graph',
+            figure=fig
+        )
+    ])
 
+    @app.callback(
+        [Output("graph", "figure"),
+        Output("affichage", "children")],
+        [Input("button", "n_clicks")],
+        [State("text", "value"),
+        State("radioitems", "value")]
+    )
+    def update_figure(n_clicks, text, radio):
+        if radio == 'url':
+            input,radio = reconnait_url(text)
+        else:
+            input = search_video_channel(text,radio)
+        if radio == 'video':
+            perc = percent_insultes(input)[0]
+            video_name = get_video_title(input)
+            data = pd.DataFrame({
+                'video': [text, text],
+                'stats': [100-perc, perc]
+            })
+            fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
+        elif radio =='channel':
+            video_id, perc = most_insulted_video(input, 10)
+            video_name = get_video_title(input)
+            data = pd.DataFrame({  
+                "video":[video_id, video_id],
+                'stats':[100-perc,perc]
+            })
+            fig = px.pie(data, values='stats', names=[
+                         "% Commentaires neutres", "% Commentaires insultants"])
+        fig.update_layout(
+            plot_bgcolor=colors['background'],
+            paper_bgcolor=colors['background'],
+            font_color=colors['text']
+        )
+        return fig, f"Vidéo : {video_name}"
 
-def get_channel_videos(channel_id, nb=2):
-    """Renvoie un dico contenant les vidéos d'une chaîne"""
-    requete = requests.get(
-        "https://youtube.googleapis.com/youtube/v3/search?key="+KEY+"&part=snippet&channelId="+channel_id+"&textFormat=plainText&order=viewCount&type=video"+"&maxResults="+str(nb))
-    page = requete.content
-    soup = BeautifulSoup(page, features='html.parser')
-    dico = json.loads(str(soup))
-    return(dico)
-
-
-def get_video_title(video_id):
-    """Renvoie le titre d'une vidéo en fonction de son id"""
-    requete = requests.get(
-        "https://youtube.googleapis.com/youtube/v3/videos?key="+KEY+"&part=snippet&id="+video_id+"&textFormat=plainText")
-    page = requete.content
-    soup = BeautifulSoup(page, features='html.parser')
-    dico = json.loads(str(soup))
-    return(dico['items'][0]['snippet']['title'])
-
-
-# print(get_video_title("ejWAoQUV6SE"))
-
-# print(get_channel_videos("UCUo1RqYV8tGjV38sQ8S5p9A"))
-# print(get_video_viewCount("Q0pBzowOKU4"))
-# print(presentation_caracteristiques_chaine("UCXwDLMDV86ldKoFVc_g8P0g"))
+    webbrowser.open('http://127.0.0.1:8050/',1)
+    app.run_server()

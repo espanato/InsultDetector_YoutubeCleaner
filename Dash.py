@@ -1,4 +1,3 @@
-import webbrowser
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -10,11 +9,14 @@ from googleapiclient.discovery import build
 from pourcentage_insultes import percent_insultes
 from channel_videos import get_video_title
 from fonctions import reconnait_url
-from credentials import KEY
+import webbrowser
 
 # KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 # KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
-# KEY = 'AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0'
+# KEY = 'AIzaSyARMcIOvEGxmAgdUQYCpSd3J669u2rpghA'
+KEY = "AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0"
+# KEY = "AIzaSyCuiVAnsl9DhNAwJTT5eW_T-ndiJG1PFiA"
+
 youtube = build('youtube', "v3", developerKey=KEY)
 
 
@@ -32,15 +34,16 @@ def search_video_channel(word, type_search='video'):
         return id_channel
 
     else:
+        print(type_search)
         print("ERREUR : type inexistant\n")
 
 
-def app_dash(input, type):
+def app_dash(input,type):
     if type == 'url':
-        input, type = reconnait_url(input)
-    else:
-        input = search_video_channel(input, type)
-    if type == 'video':
+        input,type = reconnait_url(input)
+    else : 
+        input = search_video_channel(input,type)
+    if type =='video':
         insul_perc = percent_insultes(input)[0]
         video_name = get_video_title(input)
         data = pd.DataFrame({
@@ -78,23 +81,23 @@ def app_dash(input, type):
             }
         ),
 
-        html.Label('URL ou Recherche', style={
+        html.Label(children = 'URL ou Recherche', style={
             'textAlign': 'center',
             'color': colors['text']
         }),
         dcc.Input(id='text', value='', type='text'),
         html.Button(id='button', n_clicks=0, children='Go !'),
-        dcc.RadioItems(id='radioitems', options=[{'label': 'URL', 'value': 'URL'}, {'label': 'Chaîne', 'value': 'channel'}, {'label': 'Video', 'value': 'video'}], value='URL', style={
-            'color': colors['text']
-        }),
+        dcc.RadioItems(id = 'radioitems', options = [{'label':'URL', 'value':'url'},{'label':'Chaîne','value':'channel'},{'label':'Video','value':'video'}], value = type,style = {
+                'color': colors['text']
+            }),
 
         html.Br(),
-        html.Label('Video ou chaîne :', style={
-            'textAlign': 'center',
-            'color': colors['text']
-        }),
+        html.Label('Video ou chaîne :',style = {
+                'textAlign': 'center',
+                'color': colors['text']
+            }),
 
-        html.Div(children=f'Vidéo : {video_name}', style={
+        html.Div(id = "affichage", children=f'Vidéo : {video_name}', style={
             'textAlign': 'center',
             'color': colors['text']
         }),
@@ -107,29 +110,31 @@ def app_dash(input, type):
     ])
 
     @app.callback(
-        Output("graph", "figure"),
+        [Output("graph", "figure"),
+        Output("affichage", "children")],
         [Input("button", "n_clicks")],
         [State("text", "value"),
-         State("radioitems", "value")]
+        State("radioitems", "value")]
     )
     def update_figure(n_clicks, text, radio):
         if radio == 'url':
-            input, radio = reconnait_url(text)
+            input,radio = reconnait_url(text)
         else:
-            input = search_video_channel(text, radio)
+            input = search_video_channel(text,radio)
         if radio == 'video':
             perc = percent_insultes(input)[0]
+            video_name = get_video_title(input)
             data = pd.DataFrame({
                 'video': [text, text],
                 'stats': [100-perc, perc]
             })
-            fig = px.pie(data, values='stats', names=[
-                         "% Commentaires neutres", "% Commentaires insultants"])
-        elif radio == 'channel':
+            fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
+        elif radio =='channel':
             video_id, perc = most_insulted_video(input, 10)
-            data = pd.DataFrame({
-                "video": [video_id, video_id],
-                'stats': [100-perc, perc]
+            video_name = get_video_title(input)
+            data = pd.DataFrame({  
+                "video":[video_id, video_id],
+                'stats':[100-perc,perc]
             })
             fig = px.pie(data, values='stats', names=[
                          "% Commentaires neutres", "% Commentaires insultants"])
@@ -138,9 +143,7 @@ def app_dash(input, type):
             paper_bgcolor=colors['background'],
             font_color=colors['text']
         )
-        return fig
-    webbrowser.open_new("http://127.0.0.1:8050/")
-    app.run_server(debug=False)
+        return fig, f"Vidéo : {video_name}"
 
-
-#app_dash('https://www.youtube.com/watch?v=zooHc3m9mWE', 'url')
+    webbrowser.open('http://127.0.0.1:8050/',1)
+    app.run_server()
