@@ -9,13 +9,18 @@ from fonctions import traitement_entree
 
 
 fin = os.getcwd().split("\\")[-1]
-if fin != "GUI":
-    os.chdir("GUI")
+if fin != "insultedetector_s2_YouTubeCleaner":
+    os.chdir("insultedetector_s2_YouTubeCleaner")
 # os.system("pause")
 
 
 bg_color = '#262525'  # Couleur du background, gris foncé
 error_text = "Veuillez rentrer une URL, une ID ou un nom de chaîne valide"
+images_path = 'GUI/images/'
+
+
+def chemin(path):
+    return(images_path+path)
 
 
 def remplace_entree(entree, text):
@@ -35,7 +40,7 @@ def button_pushed(label, text, type_entree):
 window = Tk()
 window.title("YouTubeCleaner Pro")
 window.geometry("1080x720")
-window.iconbitmap("images/logo.ico")
+window.iconbitmap(chemin('logo.ico'))
 window.config(background=bg_color)
 window.minsize(1080, 720)
 
@@ -44,7 +49,7 @@ frame = Frame(window, bg=bg_color)
 frame_entree_pc = Frame(frame, bg=bg_color)  # entrée et bouton "coller"
 
 ####### IMAGE ########
-logo = PhotoImage(file="images/logo.png")
+logo = PhotoImage(file=chemin('logo.png'))
 panel = Label(frame, image=logo, bg=bg_color)
 panel.pack(side=TOP)
 
@@ -77,7 +82,7 @@ rb_url.select()
 frame_radiobutton.pack(expand=YES)
 
 ####### BOUTON "COLLER" #######
-logo_pc = PhotoImage(file="images/pc_logo.png")
+logo_pc = PhotoImage(file=chemin('pc_logo.png'))
 logo_pc = logo_pc.subsample(x=2, y=2)
 bouton_pc = Button(frame_entree_pc, image=logo_pc, cursor='hand2', bg='#4E5354', relief='groove',
                    command=lambda: remplace_entree(entree, pc.paste()))
@@ -104,7 +109,7 @@ frame.pack(expand=YES)
 
 ####### BOUTON GITLAB #######
 lien_gitlab = "https://gitlab-ovh-02.cloud.centralesupelec.fr/edouard.roby/insultedetector_s2_YouTubeCleaner"
-image_gitlab = PhotoImage(file="images/gitlab-logo.png")
+image_gitlab = PhotoImage(file=chemin('gitlab-logo.png'))
 bouton_gitlab = Button(window, cursor='hand2',
                        image=image_gitlab, command=lambda: webbrowser.open_new(lien_gitlab))
 bouton_gitlab.place(rely=1.0, relx=1.0, x=0, y=0, anchor=SE)
