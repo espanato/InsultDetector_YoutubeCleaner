@@ -7,6 +7,7 @@ import webbrowser
 from Dash import app_dash
 import pyperclip as pc
 from fonctions import traitement_entree
+from Dash import app_dash
 
 
 fin = os.getcwd().split("\\")[-1]
