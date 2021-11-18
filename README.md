@@ -20,3 +20,4 @@ Projet de la semaine 2 des Coding Weeks du Groupe 7 en Détecteur d'insultes
 - pip install dash
 - pip install nltk
 - pip install sklearn
+- pip install langdetect

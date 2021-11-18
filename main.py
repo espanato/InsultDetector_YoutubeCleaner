@@ -14,6 +14,7 @@ if fin != "insultedetector_s2_YouTubeCleaner":
     os.chdir("insultedetector_s2_YouTubeCleaner")
 # os.system("pause")
 
+print(os.getcwd())
 
 bg_color = '#262525'  # Couleur du background, gris foncé
 error_text = "Veuillez rentrer une URL, une ID ou un nom de chaîne valide"
