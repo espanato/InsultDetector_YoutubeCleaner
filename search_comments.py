@@ -8,8 +8,8 @@ from requests.api import get
 
 # chercher les commentaires d'une video avec toutes les infos de yt
 #KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
-#KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
-KEY = 'AIzaSyARMcIOvEGxmAgdUQYCpSd3J669u2rpghA'
+#KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
+KEY = "AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0"
 
 
 def get_video_comments(video_id, nb=3):
@@ -151,14 +151,15 @@ def get_video_replies_words(parent_id, liste_de_mots, nb=3):
 
 
 def get_video_statistics(video_id):
-    """ renvoie views, likes, dislikes pour une vidéo donnée"""
+    """ renvoie views, likes, dislikes, nombre_commentaires pour une vidéo donnée"""
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
     youtube = build('youtube', "v3", developerKey=KEY)
     request = youtube.videos().list(part="statistics", id=video_id).execute()
     views = int(request['items'][0]['statistics']['viewCount'])
     likes = int(request['items'][0]['statistics']['likeCount'])
     dislikes = int(request['items'][0]['statistics']['dislikeCount'])
-    return views, likes, dislikes
+    comment_count = int(request['items'][0]['statistics']['commentCount'])
+    return views, likes, dislikes,comment_count
 
 
 # print(get_video_replies_words('UgyXSKR2TSiAgzebL3R4AaABAg',
@@ -230,7 +231,7 @@ le dico: les clés sont les pseudos des utilisateurs, les valeurs sont les texte
 
 def get_all_replies(parent_id):
     dico = get_video_replies(parent_id, 100)
-    commentaires_dico = get_video_replies_dico(parent_id, 100)
+    commentaires_dico = get_video_replies(parent_id, 100)
     while 'nextPageToken' in dico:
         page_token = dico['nextPageToken']
         new_dico = get_video_replies_dico_page_token(parent_id, page_token)
