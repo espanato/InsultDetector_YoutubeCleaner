@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, recall_score
 from sklearn.model_selection import train_test_split
@@ -8,13 +9,19 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import re
 import time
+import pickle
 
 data = pd.read_csv(
-    'C:/Users/etoma/OneDrive/Documents/jigsaw-toxic-comment-classification-challenge-bis/train.csv')
-data = data.drop(['id', 'toxic', 'identity_hate',
-                 'severe_toxic', 'obscene', 'threat'], axis=1)
+    'C:/Users/Charly Bohard/Documents/PythonScripts/jigsaw-toxic-comment-classification-challenge/train.csv')
+data["insult"][data["threat"] == 1] = 1
+data["insult"][data["toxic"] == 1] = 1
+data["insult"][data["severe_toxic"] == 1] = 1
+data["insult"][data["obscene"] == 1] = 1
+data["insult"][data["identity_hate"] == 1] = 1
 X, y = data["comment_text"], data['insult']
 
+print(len([i for i in np.array(data.insult) if i == 1]))
+'''
 documents = []
 
 stemmer = WordNetLemmatizer()
@@ -47,7 +54,7 @@ for sen in range(0, len(X)):
     documents.append(document)
 
 vectorizer = CountVectorizer(
-    max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('french'))
+    max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
 X = vectorizer.fit_transform(documents).toarray()
 
 tfidfconverter = TfidfTransformer()
@@ -56,14 +63,17 @@ X = tfidfconverter.fit_transform(X).toarray()
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=0)
 
-classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
+classifier = RandomForestClassifier(n_estimators=100, random_state=None)
 classifier.fit(X_train, y_train)
-y_pred = classifier.predict(X_test)
+
+# with open('pickle_model','wb') as file:
+#     pickle.dump(classifier,file)
+# y_pred = classifier.predict(X_test)
 
 
-print(confusion_matrix(y_test, y_pred))
-print(classification_report(y_test, y_pred))
-print(accuracy_score(y_test, y_pred))
+# print(confusion_matrix(y_test, y_pred))
+# print(classification_report(y_test, y_pred))
+# print(accuracy_score(y_test, y_pred))
 
 # def opti_hyperpara():
 #     ti = time.time()
@@ -95,3 +105,9 @@ print(accuracy_score(y_test, y_pred))
 
 
 # opti_hyperpara()
+
+def detection(text):
+    data = pd.DataFrame({
+        'text':text
+    })
+'''
