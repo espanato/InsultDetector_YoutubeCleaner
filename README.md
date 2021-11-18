@@ -43,7 +43,6 @@ Ce projet s’adresse au grand public comme aux professionnels, par exemple :
 ► Pour des Youtubeurs, afin de mieux connaître leur communauté
 ► Pour les entreprises désireuses de réaliser un partenariat avec un Youtubeur
 
-
 ## Statut du projet
 Le projet est actuellement fonctionnel en tant que MVP (minimum viable product). Une amélioration possible consisterait en le développement de méthodes de machine learning afin d'améliorer la qualité de la détection d'insultes.
 
