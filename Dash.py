@@ -8,6 +8,7 @@ from most_insulted_video import most_insulted_video
 from googleapiclient.discovery import build
 from pourcentage_insultes import percent_insultes
 from channel_videos import get_video_title
+from GUI.fonctions import reconnait_url
 
 # KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
@@ -32,6 +33,8 @@ def search_video_channel(word,type_search='video'):
 
 
 def app_dash(input,type):
+    if type == 'url':
+        input,type = reconnait_url(input)
     if type =='video':
         insul_perc = percent_insultes(input)[0]
         video_name = get_video_title(input)
@@ -122,7 +125,7 @@ def app_dash(input,type):
         elif dropdown =='channel':
             video_id, perc = most_insulted_video(input, 10)
             data = pd.DataFrame({  
-                "video":[input, input],
+                "video":[video_id, video_id],
                 'stats':[100-perc,perc]
             })
             fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
