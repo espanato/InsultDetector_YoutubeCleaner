@@ -264,7 +264,7 @@ def get_all(video_id):
     return commentaires_dico
 
 
-# print(get_all('bEnp8Qdi2Oc'))
+# print(get_all('OSFsBihsSnE'))
 
 
 def collect_comments_and_replies(video_id, nb):

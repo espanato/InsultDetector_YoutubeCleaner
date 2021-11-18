@@ -3,6 +3,7 @@ KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
 
 
 def contient_espace(text):
+    """Renvoie false s'il n'y a pas d'espace dans le texte"""
     return " " in text
 
 

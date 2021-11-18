@@ -8,6 +8,7 @@ from most_insulted_video import most_insulted_video
 from googleapiclient.discovery import build
 from pourcentage_insultes import percent_insultes
 from channel_videos import get_video_title
+from GUI.fonctions import reconnait_url
 
 # KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
 # KEY = "AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ"
@@ -32,8 +33,12 @@ def search_video_channel(word, type_search='video'):
         print("ERREUR : type inexistant\n")
 
 
-def app_dash(input, type):
-    if type == 'video':
+def app_dash(input,type):
+    if type == 'url':
+        input,type = reconnait_url(input)
+    else : 
+        input = search_video_channel(input,type)
+    if type =='video':
         insul_perc = percent_insultes(input)[0]
         video_name = get_video_title(input)
         data = pd.DataFrame({
@@ -48,8 +53,6 @@ def app_dash(input, type):
             'stats': [100-perc, perc]
         })
 
-    options = [{'label': 'channel', 'value': 'channel'},
-               {'label': 'video', 'value': 'video'}]
     app = dash.Dash(__name__)
     colors = {
         'background': '#111111',
@@ -79,21 +82,15 @@ def app_dash(input, type):
         }),
         dcc.Input(id='text', value='', type='text'),
         html.Button(id='button', n_clicks=0, children='Go !'),
-        dcc.RadioItems(id='radioitems', options=[{'label': 'URL', 'value': 'URL'}, {'label': 'recherche', 'value': 'recherche'}], value='URL', style={
-            'color': colors['text']
-        }),
+        dcc.RadioItems(id = 'radioitems', options = [{'label':'URL', 'value':'URL'},{'label':'Chaîne','value':'channel'},{'label':'Video','value':'video'}], value = 'URL',style = {
+                'color': colors['text']
+            }),
 
         html.Br(),
-        html.Label('Video ou chaîne :', style={
-            'textAlign': 'center',
-            'color': colors['text']
-        }),
-        dcc.Dropdown(
-            id='values',
-            options=options,
-            value='video',
-            clearable=None
-        ),
+        html.Label('Video ou chaîne :',style = {
+                'textAlign': 'center',
+                'color': colors['text']
+            }),
 
         html.Div(children=f'Vidéo : {video_name}', style={
             'textAlign': 'center',
@@ -111,23 +108,25 @@ def app_dash(input, type):
         Output("graph", "figure"),
         [Input("button", "n_clicks")],
         [State("text", "value"),
-         State("values", "value")]
+        State("radioitems", "value")]
     )
-    def update_figure(n_clicks, text, dropdown):
-
-        if dropdown == 'video':
+    def update_figure(n_clicks, text, radio):
+        if radio == 'url':
+            input,type = reconnait_url(text)
+        else : 
+            input = search_video_channel(text,radio)
+        if radio == 'video':
             perc = percent_insultes(input)[0]
             data = pd.DataFrame({
                 'video': [text, text],
                 'stats': [100-perc, perc]
             })
-            fig = px.pie(data, values='stats', names=[
-                         "% Commentaires neutres", "% Commentaires insultants"])
-        elif dropdown == 'channel':
+            fig = px.pie(data, values = 'stats', names=["% Commentaires neutres","% Commentaires insultants"])
+        elif radio =='channel':
             video_id, perc = most_insulted_video(input, 10)
-            data = pd.DataFrame({
-                "video": [input, input],
-                'stats': [100-perc, perc]
+            data = pd.DataFrame({  
+                "video":[video_id, video_id],
+                'stats':[100-perc,perc]
             })
             fig = px.pie(data, values='stats', names=[
                          "% Commentaires neutres", "% Commentaires insultants"])
@@ -137,8 +136,5 @@ def app_dash(input, type):
             font_color=colors['text']
         )
         return fig
-
+    
     app.run_server(debug=True)
-
-
-app_dash("zooHc3m9mWE", 'video')
