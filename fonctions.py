@@ -38,15 +38,15 @@ def reconnait_url(url):
     Renvoie un tuple (id, type), ou False si le lien est de mauvais format"""
     longueur = len(url)
     if (longueur == 11) and not contient_espace(url):  # id d'une video fait 11 caractères
-        return(url, 'video')
+        return('video')
     elif (longueur == 24) and not contient_espace(url):  # id d'une chaîne fait 24 caractères
         return(url, 'channel')
     else:
         try:  # on regarde si c'est au moins un lien valide
             if 'watch' in url:  # condition nécessaire pour qu'un lien soit celui d'une vidéo
-                reconnait_url(url.split('youtube.com/watch?v=')[1][0:11])
+                return reconnait_url(url.split('youtube.com/watch?v=')[1][0:11])
             else:
-                reconnait_url(url.split('youtube.com/channel/')[1][0:24])
+                return reconnait_url(url.split('youtube.com/channel/')[1][0:24])
         except:
             return (False)
 
