@@ -13,8 +13,8 @@ YoutubeCleaner est un projet créé par des étudiants de CentraleSupélec dans 
 
 ## Packages nécessaires
 
- tkinter
- json
+tkinter
+json
 os
 csv
 codecs
