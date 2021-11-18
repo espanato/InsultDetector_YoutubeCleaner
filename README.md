@@ -1,4 +1,4 @@
-#YoutubeCleaner
+## YoutubeCleaner
 
 YoutubeCleaner est un projet créé par des étudiants de CentraleSupélec dans le cadre des Coding Weeks 2021 – 2022 et dans le thème "Détecteur d'insultes".
 
@@ -13,8 +13,8 @@ YoutubeCleaner est un projet créé par des étudiants de CentraleSupélec dans 
 
 ## Packages nécessaires
 
-tkinter
-json
+ tkinter
+ json
 os
 csv
 codecs
@@ -31,12 +31,12 @@ dash
 nltk
 sklearn
 
-##Fonctionnement
+## Fonctionnement
 
 Lancer le fichier main.py du dossier src.
 La recherche de vidéos peut se faire par URL (url) ou par ID de vidéo (video).
 
-##Usages
+## Usages
 
 Ce projet s’adresse au grand public comme aux professionnels, par exemple :
 ► Pour de simples utilisateurs de Youtube, à des fins d’information
@@ -44,5 +44,5 @@ Ce projet s’adresse au grand public comme aux professionnels, par exemple :
 ► Pour les entreprises désireuses de réaliser un partenariat avec un Youtubeur
 
 
-##Statut du projet
+## Statut du projet
 Le projet est actuellement fonctionnel en tant que MVP (minimum viable product). Une amélioration possible consisterait en le développement de méthodes de machine learning afin d'améliorer la qualité de la détection d'insultes.
