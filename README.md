@@ -95,6 +95,8 @@ ___|**liste_insulte.py**
 
 ___|**main.py**  ###    _Fichier permettant de lancer l'interface graphique du programme_
 
+___|**ml_finale.py** ###  _Obtenir la proportion insultes/messages neutres des commentaires d'une vidéo grâce à la ml_
+
 ___|**ml_comments_train_test.py**
 
 ___|**ml_comments.py**
