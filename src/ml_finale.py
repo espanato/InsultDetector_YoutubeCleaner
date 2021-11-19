@@ -23,8 +23,7 @@ from googleapiclient.discovery import build
 from requests.api import get
 
 
-def proportions_avec_ml(video_id):
-    ti = time.time()
+def enregistrer_ml():
     data = pd.read_csv(
         'C:/Users/etoma/OneDrive/Documents/jigsaw-toxic-comment-classification-challenge-bis/train.csv')
 
@@ -77,9 +76,19 @@ def proportions_avec_ml(video_id):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
     classifier = RandomForestClassifier(n_estimators=100)
     classifier.fit(X_train, y_train)
+    pickle.dump(classifier, open(
+        'C:/Users/etoma/OneDrive/Bureau/insultedetector_s2_YouTubeCleaner/src/ml.sav', 'wb'))
 
-    ####################################################################################################################################################
 
+# enregistrer_ml()
+# la ml a été enregistrée dans ml.sav
+
+####################################################################################################################################################
+
+
+def get_props(video_id):
+    classifier = pickle.load(open(
+        'C:/Users/etoma/OneDrive/Bureau/insultedetector_s2_YouTubeCleaner/src/ml.sav', 'rb'))  # on ouvre la ml
     commentaires_dico = get_all(video_id)
     nb_commentaires = len(commentaires_dico)
     liste_panda = [commentaires_dico[elt] for elt in commentaires_dico]
@@ -133,10 +142,10 @@ def proportions_avec_ml(video_id):
         if liste[i] == 1:
             nb_insultes += 1
 
-    tf = time.time()
-
     print("pourcentage d'insultes identifiées:",
           (nb_insultes/nb_commentaires)*100)
     print("pourcentage de messages neutres identifiés:",
           (nb_neutre/nb_commentaires)*100)
-    print("temps d'exécution en secondes:", tf-ti)
+
+
+# print(get_props('th5_9woFJmk'))
