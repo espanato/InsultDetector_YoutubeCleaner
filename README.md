@@ -34,7 +34,7 @@ sklearn
 ## Fonctionnement
 
 Lancer le fichier main.py du dossier src.
-La recherche de vidéos peut se faire par URL (url) ou par ID de vidéo (video).
+La recherche de vidéos peut se faire par URL (url) ou par ID de vidéo (video). ATTENTION : une demande de credentials (clés d'API) doit être faite avant de pouvoir utiliser le produit (il faut alors créer un fichier credentials dans src et les mettre dedans).
 
 ## Usages
 
