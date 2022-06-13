@@ -1,8 +1,7 @@
 from googleapiclient.discovery import build
-#KEY = "AIzaSyB13BBBdQR3muGiIR2dLoiycwZGQ30YYHs"
-#KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
-KEY = "AIzaSyCcUHB9SwOPaOwT7ldOUbQGjfuZx0YZ7v0"
-# KEY = "AIzaSyCuiVAnsl9DhNAwJTT5eW_T-ndiJG1PFiA"
+
+KEY = "YOUR_YOUTUBE_API_KEY"
+
 
 def contient_espace(text):
     """Renvoie false s'il n'y a pas d'espace dans le texte"""
