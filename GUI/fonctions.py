@@ -1,5 +1,5 @@
 from googleapiclient.discovery import build
-KEY = 'AIzaSyAX7dBqLt4ihw9aNtkQZTAKw3mGs9hGRrQ'
+KEY = 'your_youtube_api_key'
 
 
 def contient_espace(text):
