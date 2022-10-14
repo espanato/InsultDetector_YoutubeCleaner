@@ -31,7 +31,7 @@ dash
 nltk
 sklearn
 
-## How does it work.
+## How to make it work
 
 ► Write your Youtube API key in credentials.py file in the src folder.  
 ► Run the main.py file in the src folder.  
