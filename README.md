@@ -33,13 +33,13 @@ sklearn
 
 ## How does it work.
 
-► Write your Youtube API KEY in credentials.py file in the src folder.  
+► Write your Youtube API key in credentials.py file in the src folder.  
 ► Run the main.py file in the src folder.  
 ► The search for videos can be done by URL (url) or by video ID (video).   
 
 ## Applications
 
-This project is aimed at the general public as well as professionals, for example:
+This project is aimed at the general public as well as professionals, for example:  
 ► For simple Youtube users, for informational purposes  
 ► For Youtubers, to get to know their community better  
 ► For companies willing to realize a partnership with a Youtuber  
