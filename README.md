@@ -33,9 +33,9 @@ sklearn
 
 ## How does it work.
 
-► Write your Youtube API KEY in credentials.py file in the src folder.
-► Run the main.py file in the src folder.
-► The search for videos can be done by URL (url) or by video ID (video). 
+► Write your Youtube API KEY in credentials.py file in the src folder.  
+► Run the main.py file in the src folder.  
+► The search for videos can be done by URL (url) or by video ID (video).   
 
 ## Applications
 
@@ -82,7 +82,7 @@ ___|**channel_videos.py**       ###  _Set of functions related to a channel_
 
 ___|**contient_insultes.py**    ###   _Function to determine if a comment contains insults or not_
 
-___|**credentials.py**  ###   _API Key _
+___|**credentials.py**  ###  _API Key_
 
 ___|**Dash.py**   ###     _Allows to launch a dash page to display the graph_
 
