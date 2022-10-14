@@ -4,11 +4,11 @@ YoutubeCleaner is a project created by CentraleSupélec students in the framewor
 
 ## Members
 
+- ESPANA Tomas
 - BLONDEL Hector
 - BUI Hugo
 - BOHARD Charly
 - CERVERA Romain
-- ESPANA Tomas
 - ROBY Edouard
 
 ## Libraries
@@ -33,21 +33,22 @@ sklearn
 
 ## How does it work.
 
-Lancer le fichier main.py du dossier src.
-La recherche de vidéos peut se faire par URL (url) ou par ID de vidéo (video). ATTENTION : une demande de credentials (clés d'API) doit être faite avant de pouvoir utiliser le produit (il faut alors créer un fichier credentials dans src et les mettre dedans).
+► Write your Youtube API KEY in credentials.py file in the src folder.
+► Run the main.py file in the src folder.
+► The search for videos can be done by URL (url) or by video ID (video). 
 
-## Usages
+## Applications
 
-Ce projet s’adresse au grand public comme aux professionnels, par exemple :
-► Pour de simples utilisateurs de Youtube, à des fins informatives
-► Pour des Youtubeurs, afin de mieux connaître leur communauté
-► Pour les entreprises désireuses de réaliser un partenariat avec un Youtubeur
+This project is aimed at the general public as well as professionals, for example:
+► For simple Youtube users, for informational purposes
+► For Youtubers, to get to know their community better
+► For companies willing to realize a partnership with a Youtuber
 
-## Statut du projet
-Le projet est actuellement fonctionnel en tant que MVP (minimum viable product). Une amélioration possible consisterait en le développement de méthodes de machine learning afin d'améliorer la qualité de la détection d'insultes.
+## Project status
+The project is currently functional as an MVP (minimum viable product). 
 
-## Découpage du projet
-**Data** ### _Liste de commentaires pour le machine learning_
+## Architecture of the project 
+**Data** ### _List of comments for machine learning_
 
 ___|****Commentaires insultants**
 
@@ -63,7 +64,7 @@ ___|**conception.md**
 
 ___|**CW - YoutubeCleaner.pptx**
 
-**Gui** ###        _Images utilisées pour l'interface graphique_
+**Gui** ###        _Images used for the graphic interface_
 
 ___|**images**
 
@@ -75,27 +76,27 @@ ______|**logo.png**
 
 ______|**pc-logo.png**
 
-**src**    ###    _Tous les modules utilisés_
+**src**    ###  
 
-___|**channel_videos.py**       ###   _Ensemble de fonctions relatives à une chaîne_
+___|**channel_videos.py**       ###  _Set of functions related to a channel_
 
-___|**contient_insultes.py**    ###   _Fonction qui permet de déterminer si un commentaire contient des insultes ou non_
+___|**contient_insultes.py**    ###   _Function to determine if a comment contains insults or not_
 
-___|**credentials.py**  ###   _Contient la clé pour l'API_
+___|**credentials.py**  ###   _API Key _
 
-___|**Dash.py**   ###     _Permet de lancer une page dash pour afficher le graph_
+___|**Dash.py**   ###     _Allows to launch a dash page to display the graph_
 
-___|**fonctions.py** ### _ensemble de fonctions nécessaires pour la recherche dans l'interface graphique_
+___|**fonctions.py** ### _set of functions needed for searching in the graphical interface_
 
 ___|**insultes.py**
 
-___|**insultes.txt**       ###   _Liste de mots considérés comme des insultes_
+___|**insultes.txt**       ###   _List of words considered as insults_
 
 ___|**liste_insulte.py**
 
-___|**main.py**  ###    _Fichier permettant de lancer l'interface graphique du programme_
+___|**main.py**  ###    _File to launch the graphic interface of the program_
 
-___|**ml_finale.py** ###  _Décommenter la ligne 151 pour obtenir le résultat donné par la ml_
+___|**ml_finale.py** ###  _Uncomment line 151 to obtain the result given by ml_
 
 ___|**ml_comments_train_test.py**
 
@@ -103,13 +104,13 @@ ___|**ml_comments.py**
 
 ___|**ml_set500kpy**
 
-___|**most_insulted_video.py**   ###     _Fonction qui renvoie la vidéo ayant le plus de commentaires insultants parmi les vidéos populaires d'une chaîne_
+___|**most_insulted_video.py**   ###     _Function that returns the video with the most insulting comments among the popular videos of a channel_
 
-___|**non_insultes.txt**     ###      _Liste de mots devant être écartés de la détection d'insultes_
+___|**non_insultes.txt**     ###      _List of words to be excluded from insult detection_
 
-___|**pourcentages_insultes**.py  ### _Fonction qui renvoie la proportion de commentaires insultants_
+___|**pourcentages_insultes**.py  ### _Function that returns the proportion of insulting comments_
 
-___|**search_comments.py**     ###    _Ensemble de fonctions utilisant l'API pour récuperer des infos sur des vidéos, chaînes ou commentaires_
+___|**search_comments.py**     ###    _Set of functions using the API to retrieve information about videos, channels or comments_
 
 ___|**Set Comments Insultants.py**
 
