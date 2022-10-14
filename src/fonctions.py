@@ -1,6 +1,5 @@
 from googleapiclient.discovery import build
-
-KEY = "YOUR_YOUTUBE_API_KEY"
+from credentials import KEY
 
 
 def contient_espace(text):
