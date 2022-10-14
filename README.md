@@ -40,9 +40,9 @@ sklearn
 ## Applications
 
 This project is aimed at the general public as well as professionals, for example:
-► For simple Youtube users, for informational purposes
-► For Youtubers, to get to know their community better
-► For companies willing to realize a partnership with a Youtuber
+► For simple Youtube users, for informational purposes  
+► For Youtubers, to get to know their community better  
+► For companies willing to realize a partnership with a Youtuber  
 
 ## Project status
 The project is currently functional as an MVP (minimum viable product). 
