@@ -48,9 +48,9 @@ This project is aimed at the general public as well as professionals, for exampl
 The project is currently functional as an MVP (minimum viable product). 
 
 ## Architecture of the project 
-**Data** ### _List of comments for machine learning_
+**Data** ### _Set of comments for the machine learning program_
 
-___|****Commentaires insultants**
+___|**Commentaires insultants**
 
 ______|... **.txt**
 
