@@ -1,3 +1,108 @@
+```
+| Projet
+
+	|-- _env.py
+		"""
+		On identifie chaque type de bord à un entier.
+		"""
+		
+	|-- compute_projected.py    
+		 """
+		 Calcul de la projection de chi-mu*grad pour la descente de gradient. 
+		 Pour calculer l'optimisation, on utilise un algorithme de projection de gradient. 
+		 Cette fonction renvoie la projection de chi sur l'espace des chi admissibles 
+		 (espace de L^{infty} dont le volume vaut V_obj et dont les valeurs sont comprises entre 0 et 1).
+
+		 Inputs:
+		 :param chi: np.array((M,N), dtype=float64), matrice de densité
+		 :param domain: np.array((M,N), dtype=complex128), domaine de définition des équations
+		 :param V_obj: float, volume de référence
+
+		 Outputs:
+		 :return: np.array((M,N), dtype=float64), la projection de chi
+		 """
+		 
+	|-- compute_alpha.py   
+		"""
+		Calcul du alpha optimal dans une configuration de chambre et de matériau donnée.
+		Les caractéristiques du matériau sont fixées ainsi que les dimensions de la chambre.
+		
+		Inputs:
+		:param omega: float, pulsation 
+
+		Outputs:
+		:return: complex, alpha optimal
+		"""
+	
+	|-- your_optimization_procedure.py	 
+		"""
+		Cacul de la densité optimisée par descente de gradient.
+
+	    	Inputs:
+	    	:param domain_omega: np.array((M,N), dtype=complex128), domaine de définition des équations
+		:param spacestep: float, pas dans l'espace
+		:param omega: float, pulsation étudiée
+		:param f, f_dir, f_neu, f_rob: numpy.zeros((M, N), dtype=numpy.complex128), conditions pour l'équation de Helmholtz
+		:param Alpha:complex, coefficient d'absorption
+		:param mu: float, pas initial pour la descente de gradient
+		:param chi: np.array((M,N), dtype=float64), matrice de densité 
+		:param V_obj: float, caractérise le volume de contrainte sur la densité chi
+		:param V_0: float, volume de référence
+		
+		Outputs:
+		return: np.array((M,N), dtype=float64), chi optimal
+    		"""
+		
+	|-- your_compute_objective_function.py
+		"""
+		Calcul de l'énergie totale dans la chambre avec la contrainte de volume
+		
+		Inputs:
+		:param domain_omega: np.array((M,N), dtype=complex128), domaine de définition des équations
+		:param u: np.array((M,N), dtype=complex128), solution de l'équation de Helmholtz
+		:param spacestep: float, pas de l'espace
+		:param V_0: float, volume de référence
+		
+		Outputs:
+		:return: float, energie totale
+		"""
+		
+	|-- preprocessing.py
+		"""
+		Pré-traitement pour initialiser les différents types de bord.
+		"""
+		
+	|-- processing.py 
+		"""
+		Fonctions de traitement appelées pendant la descente de gradient pour la mise à jours des bords. 
+		"""
+		
+	|-- postprocessing 
+		"""
+		Fonctions pour afficher les graphes. 
+		"""
+	
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## YoutubeCleaner
 
 YoutubeCleaner is a project created by CentraleSupélec students in the framework of the Coding Weeks 2021 - 2022 and in the theme "Insult detector".
@@ -128,47 +233,4 @@ ___|**setup.py**
 
 
 
-'''
-|_Projet
-	|-- configuration.php
-	|-- index.php
-	|-- /global				-->(template)
-	|-- /libs				-->(Facebook,PHPMailer,lib core Guideyou)
-	|-- /local				-->(fichier traduction)
-	|-- /modules
-		|-- /mod_404
-			|-- /actions	--> (controleurs)
-			|-- /img
-			|-- /styles
-			|-- /views		--> (views)
-			|-- index.php 
-		|-- /mod_dashboard
-			|-- /actions	--> (controleurs)
-			|-- /img
-			|-- /styles
-			|-- /js
-			|-- /views		--> (views)
-			|-- index.php 
-		|_ /mod_home
-			|-- /actions	--> (controleurs)
-			|-- /img
-			|-- /styles
-			|-- /js
-			|-- /views		--> (views)
-			|-- index.php 
-		|_ /mod_user
-			|-- /actions	--> (controleurs)
-			|-- /img
-			|-- /styles
-			|-- /js
-			|-- /views		--> (views)
-			|-- index.php 
-		|_ /mod_offer
-			|-- /actions	--> (controleurs)
-			|-- /img
-			|-- /styles
-			|-- /js
-			|-- /views		--> (views)
-			|-- index.php 
-	|_ README.md
-'''
+
