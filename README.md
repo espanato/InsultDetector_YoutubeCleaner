@@ -43,8 +43,8 @@
 	    	:param domain: np.array((M,N), dtype=complex128), domaine de définition des équations
 		:param spacestep: float, pas dans l'espace
 		:param omega: float, pulsation étudiée
-		:param f, f_dir, f_neu, f_rob: np.zeros((M, N), dtype=numpy.complex128), conditions pour 
-		l'équation de Helmholtz
+		:param f, f_dir, f_neu, f_rob: np.zeros((M, N), dtype=numpy.complex128), conditions 
+		 pour l'équation de Helmholtz
 		:param Alpha:complex, coefficient d'absorption
 		:param mu: float, pas initial pour la descente de gradient
 		:param chi: np.array((M,N), dtype=float64), matrice de densité 
