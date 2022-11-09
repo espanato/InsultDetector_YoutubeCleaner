@@ -128,7 +128,7 @@ ___|**setup.py**
 
 
 
-
+'''
 |_Projet
 	|-- configuration.php
 	|-- index.php
@@ -171,3 +171,4 @@ ___|**setup.py**
 			|-- /views		--> (views)
 			|-- index.php 
 	|_ README.md
+'''
