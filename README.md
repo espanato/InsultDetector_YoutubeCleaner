@@ -3,7 +3,7 @@
 
 	|-- _env.py
 		"""
-		On identifie chaque type de bord à un entier.
+		On associe chaque type de bord à un entier.
 		"""
 		
 	|-- compute_projected.py    
