@@ -11,12 +11,13 @@
 		 Calcul de la projection de chi-mu*grad pour la descente de gradient. 
 		 Pour calculer l'optimisation, on utilise un algorithme de projection de gradient. 
 		 Cette fonction renvoie la projection de chi sur l'espace des chi admissibles 
-		 (espace de L^{infty} dont le volume vaut V_obj et dont les valeurs sont comprises entre 0 et 1).
+		 (espace de L^{infty} dont le volume vaut V_obj et dont les valeurs sont comprises 
+		 entre 0 et 1).
 
 		 Inputs:
 		 :param chi: np.array((M,N), dtype=float64), matrice de densité
 		 :param domain: np.array((M,N), dtype=complex128), domaine de définition des équations
-		 :param V_obj: float, volume de référence
+		 :param V_obj: float, volume de référence pour chi
 
 		 Outputs:
 		 :return: np.array((M,N), dtype=float64), la projection de chi
@@ -36,18 +37,19 @@
 	
 	|-- your_optimization_procedure.py	 
 		"""
-		Cacul de la densité optimisée par descente de gradient.
+		Calcul de la densité optimisée par descente de gradient.
 
 	    	Inputs:
-	    	:param domain_omega: np.array((M,N), dtype=complex128), domaine de définition des équations
+	    	:param domain: np.array((M,N), dtype=complex128), domaine de définition des équations
 		:param spacestep: float, pas dans l'espace
 		:param omega: float, pulsation étudiée
-		:param f, f_dir, f_neu, f_rob: numpy.zeros((M, N), dtype=numpy.complex128), conditions pour l'équation de Helmholtz
+		:param f, f_dir, f_neu, f_rob: np.zeros((M, N), dtype=numpy.complex128), conditions pour 
+		l'équation de Helmholtz
 		:param Alpha:complex, coefficient d'absorption
 		:param mu: float, pas initial pour la descente de gradient
 		:param chi: np.array((M,N), dtype=float64), matrice de densité 
-		:param V_obj: float, caractérise le volume de contrainte sur la densité chi
-		:param V_0: float, volume de référence
+		:param V_obj: float, volume de référence pour chi
+		:param V_0: float, volume de référence dans le domaine
 		
 		Outputs:
 		return: np.array((M,N), dtype=float64), chi optimal
@@ -61,7 +63,7 @@
 		:param domain_omega: np.array((M,N), dtype=complex128), domaine de définition des équations
 		:param u: np.array((M,N), dtype=complex128), solution de l'équation de Helmholtz
 		:param spacestep: float, pas de l'espace
-		:param V_0: float, volume de référence
+		:param V_0: float, volume de référence dans le domaine
 		
 		Outputs:
 		:return: float, energie totale
@@ -74,7 +76,8 @@
 		
 	|-- processing.py 
 		"""
-		Fonctions de traitement appelées pendant la descente de gradient pour la mise à jours des bords. 
+		Fonctions de traitement appelées pendant la descente de gradient pour la mise
+		à jours des bords. 
 		"""
 		
 	|-- postprocessing 
