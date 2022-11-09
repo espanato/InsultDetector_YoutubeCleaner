@@ -115,3 +115,59 @@ ___|**search_comments.py**     ###    _Set of functions using the API to retriev
 ___|**Set Comments Insultants.py**
 
 ___|**setup.py**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+|_Projet
+	|-- configuration.php
+	|-- index.php
+	|-- /global				-->(template)
+	|-- /libs				-->(Facebook,PHPMailer,lib core Guideyou)
+	|-- /local				-->(fichier traduction)
+	|-- /modules
+		|-- /mod_404
+			|-- /actions	--> (controleurs)
+			|-- /img
+			|-- /styles
+			|-- /views		--> (views)
+			|-- index.php 
+		|-- /mod_dashboard
+			|-- /actions	--> (controleurs)
+			|-- /img
+			|-- /styles
+			|-- /js
+			|-- /views		--> (views)
+			|-- index.php 
+		|_ /mod_home
+			|-- /actions	--> (controleurs)
+			|-- /img
+			|-- /styles
+			|-- /js
+			|-- /views		--> (views)
+			|-- index.php 
+		|_ /mod_user
+			|-- /actions	--> (controleurs)
+			|-- /img
+			|-- /styles
+			|-- /js
+			|-- /views		--> (views)
+			|-- index.php 
+		|_ /mod_offer
+			|-- /actions	--> (controleurs)
+			|-- /img
+			|-- /styles
+			|-- /js
+			|-- /views		--> (views)
+			|-- index.php 
+	|_ README.md
