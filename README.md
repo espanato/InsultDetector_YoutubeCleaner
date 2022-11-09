@@ -60,7 +60,8 @@
 		Calcul de l'énergie totale dans la chambre avec la contrainte de volume
 		
 		Inputs:
-		:param domain_omega: np.array((M,N), dtype=complex128), domaine de définition des équations
+		:param domain_omega: np.array((M,N), dtype=complex128), domaine de définition 
+		 des équations
 		:param u: np.array((M,N), dtype=complex128), solution de l'équation de Helmholtz
 		:param spacestep: float, pas de l'espace
 		:param V_0: float, volume de référence dans le domaine
